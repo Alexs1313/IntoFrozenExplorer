@@ -139,13 +139,7 @@ export function PlaceDetailScreen({
               <View
                 renderToHardwareTextureAndroid
                 collapsable={false}
-                style={{
-                  flex: 1,
-                  width: '100%',
-                  marginTop: 12,
-                  borderRadius: 22,
-                  overflow: 'hidden',
-                }}
+                style={styles.PlaceDetailScreenMapWrapperChassis}
               >
                 <MapView
                   userInterfaceStyle="dark"
@@ -348,9 +342,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 14,
     marginTop: 12,
   },
+  PlaceDetailScreenMapWrapperChassis: {
+    borderRadius: 22,
+    margin: 14,
+    marginTop: 12,
+    overflow: 'hidden',
+  },
   PlaceDetailScreenMapSigil: {
     height: 360,
-    margin: 14,
   },
 
   PlaceDetailScreenActionsLintel: {

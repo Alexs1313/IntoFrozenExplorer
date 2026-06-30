@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,6 +30,9 @@ export function MapScreen({
   onTabPress,
 }: MapScreenProps) {
   const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
+  const mapChassisLandscapeStyle = isLandscape ? { minHeight: height * 0.7 } : null;
   const [showTooltip, setShowTooltip] = useState(true);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
 
@@ -77,7 +81,7 @@ export function MapScreen({
           </View>
 
           {/* Map container */}
-          <View style={styles.MapScreenMapChassis}>
+          <View style={[styles.MapScreenMapChassis, mapChassisLandscapeStyle]}>
             <MapView
               style={styles.MapScreenMapSigil}
               userInterfaceStyle="dark"
@@ -108,7 +112,7 @@ export function MapScreen({
               <View style={styles.MapScreenPlaceCardChassis}>
                 <Image
                   source={selectedPlace.image}
-                  style={styles.MapScreenPlaceImageSigil}
+                  style={[styles.MapScreenPlaceImageSigil, isLandscape && styles.MapScreenPlaceImageSigilLandscape]}
                   resizeMode="cover"
                 />
                 <Text style={styles.MapScreenPlaceNameFiligree}>
@@ -239,6 +243,9 @@ const styles = StyleSheet.create({
   MapScreenPlaceImageSigil: {
     height: 172,
     width: '100%',
+  },
+  MapScreenPlaceImageSigilLandscape: {
+    height: 80,
   },
 
   MapScreenPlaceNameFiligree: {

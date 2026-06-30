@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -30,10 +29,9 @@ export function CompassScreen({
 
   return (
     <View style={styles.CompassScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.CompassScreenBackground}
-        resizeMode="cover"
       >
         <ScrollView
           bounces={false}
@@ -45,10 +43,6 @@ export function CompassScreen({
         >
           {/* Header with gradient */}
           <View style={styles.CompassScreenHeaderChassis}>
-            <LinearGradient
-              colors={[colors.topGradientStart, colors.topGradientEnd]}
-              style={StyleSheet.absoluteFill}
-            />
             <View
               style={[
                 styles.CompassScreenHeaderInset,
@@ -112,7 +106,7 @@ export function CompassScreen({
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
@@ -129,9 +123,7 @@ const styles = StyleSheet.create({
   CompassScreenScrollLintel: {
     flexGrow: 1,
   },
-  CompassScreenHeaderChassis: {
-    overflow: 'hidden',
-  },
+  CompassScreenHeaderChassis: {},
   CompassScreenHeaderInset: {
     paddingHorizontal: 16,
   },

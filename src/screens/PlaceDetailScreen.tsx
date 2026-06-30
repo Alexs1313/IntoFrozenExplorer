@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   Share,
@@ -48,16 +47,10 @@ export function PlaceDetailScreen({
 
   return (
     <View style={styles.PlaceDetailScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.PlaceDetailScreenBackground}
-        resizeMode="cover"
       >
-        <LinearGradient
-          colors={[colors.topGradientStart, colors.topGradientEnd]}
-          style={styles.PlaceDetailScreenTopGradientVeil}
-        />
-
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={[
@@ -225,7 +218,7 @@ export function PlaceDetailScreen({
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
@@ -240,13 +233,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  PlaceDetailScreenTopGradientVeil: {
-    height: 205,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
   PlaceDetailScreenHeaderLintel: {
     alignItems: 'center',
     flexDirection: 'row',

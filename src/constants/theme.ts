@@ -3,6 +3,8 @@ export const DESIGN_HEIGHT = 852;
 
 export const colors = {
   background: '#0d1535',
+  bgGradientTop: '#081028',
+  bgGradientBottom: '#142848',
   skip: '#ffffff',
   white: '#ffffff',
 

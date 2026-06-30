@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   Share,
@@ -34,10 +33,9 @@ export function FactsScreen({
 
   return (
     <View style={styles.FactsScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.FactsScreenBackground}
-        resizeMode="cover"
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -48,10 +46,6 @@ export function FactsScreen({
           ]}
         >
           <View style={styles.FactsScreenHeaderChassis}>
-            <LinearGradient
-              colors={[colors.topGradientStart, colors.topGradientEnd]}
-              style={StyleSheet.absoluteFill}
-            />
             <View
               style={[
                 styles.FactsScreenHeaderInset,
@@ -130,7 +124,7 @@ export function FactsScreen({
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
@@ -146,9 +140,7 @@ const styles = StyleSheet.create({
   FactsScreenScrollLintel: {
     flexGrow: 1,
   },
-  FactsScreenHeaderChassis: {
-    overflow: 'hidden',
-  },
+  FactsScreenHeaderChassis: {},
   FactsScreenHeaderInset: {
     paddingHorizontal: 16,
   },

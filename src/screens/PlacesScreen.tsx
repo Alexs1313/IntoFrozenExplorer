@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  ImageBackground,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -36,10 +35,9 @@ export function PlacesScreen({
 
   return (
     <View style={styles.PlacesScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.PlacesScreenBackground}
-        resizeMode="cover"
       >
         <ScrollView
           bounces={false}
@@ -50,10 +48,6 @@ export function PlacesScreen({
           ]}
         >
           <View style={styles.PlacesScreenHeaderChassis}>
-            <LinearGradient
-              colors={[colors.topGradientStart, colors.topGradientEnd]}
-              style={StyleSheet.absoluteFill}
-            />
             <View
               style={[
                 styles.PlacesScreenHeaderInset,
@@ -101,7 +95,7 @@ export function PlacesScreen({
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
@@ -117,9 +111,7 @@ const styles = StyleSheet.create({
   PlacesScreenScrollLintel: {
     flexGrow: 1,
   },
-  PlacesScreenHeaderChassis: {
-    overflow: 'hidden',
-  },
+  PlacesScreenHeaderChassis: {},
   PlacesScreenHeaderInset: {
     paddingHorizontal: 16,
   },

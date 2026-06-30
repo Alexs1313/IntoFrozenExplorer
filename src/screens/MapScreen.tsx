@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -45,21 +44,15 @@ export function MapScreen({
 
   return (
     <View style={styles.MapScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.MapScreenBackground}
-        resizeMode="cover"
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
           bounces={false}
           showsVerticalScrollIndicator={false}
         >
-          <LinearGradient
-            colors={[colors.topGradientStart, colors.topGradientEnd]}
-            style={styles.MapScreenTopGradientVeil}
-          />
-
           {/* Header */}
           <View
             style={[styles.MapScreenHeaderLintel, { paddingTop: insets.top }]}
@@ -137,7 +130,7 @@ export function MapScreen({
           </View>
           <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
         </ScrollView>
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
@@ -149,13 +142,6 @@ const styles = StyleSheet.create({
   },
   MapScreenBackground: {
     flex: 1,
-  },
-  MapScreenTopGradientVeil: {
-    height: 205,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
   },
   MapScreenHeaderLintel: {
     alignItems: 'center',

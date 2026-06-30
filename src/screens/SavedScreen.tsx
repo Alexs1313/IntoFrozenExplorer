@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   Share,
@@ -54,10 +53,9 @@ export function SavedScreen({
 
   return (
     <View style={styles.SavedScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.SavedScreenBackground}
-        resizeMode="cover"
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -69,10 +67,6 @@ export function SavedScreen({
         >
           {/* Header with gradient */}
           <View style={styles.SavedScreenHeaderChassis}>
-            <LinearGradient
-              colors={[colors.topGradientStart, colors.topGradientEnd]}
-              style={StyleSheet.absoluteFill}
-            />
             <View
               style={[
                 styles.SavedScreenHeaderInset,
@@ -245,7 +239,7 @@ export function SavedScreen({
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
@@ -262,9 +256,7 @@ const styles = StyleSheet.create({
   SavedScreenScrollLintel: {
     flexGrow: 1,
   },
-  SavedScreenHeaderChassis: {
-    overflow: 'hidden',
-  },
+  SavedScreenHeaderChassis: {},
   SavedScreenHeaderInset: {
     paddingHorizontal: 16,
   },

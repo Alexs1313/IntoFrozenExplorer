@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   Share,
@@ -31,10 +30,9 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
   if (article) {
     return (
       <View style={styles.BlogScreenFacetChassis}>
-        <ImageBackground
-          source={require('../assets/into-frozen-explorer-background.png')}
+        <LinearGradient
+          colors={[colors.bgGradientTop, colors.bgGradientBottom]}
           style={styles.BlogScreenBackground}
-          resizeMode="cover"
         >
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -47,10 +45,6 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
             ]}
           >
             <View style={styles.BlogScreenArticleHeaderChassis}>
-              <LinearGradient
-                colors={[colors.topGradientStart, colors.topGradientEnd]}
-                style={StyleSheet.absoluteFill}
-              />
               <View
                 style={[
                   styles.BlogScreenArticleHeaderInset,
@@ -106,17 +100,16 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
           </ScrollView>
 
           <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-        </ImageBackground>
+        </LinearGradient>
       </View>
     );
   }
 
   return (
     <View style={styles.BlogScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.BlogScreenBackground}
-        resizeMode="cover"
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -127,10 +120,6 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
           ]}
         >
           <View style={styles.BlogScreenHeaderChassis}>
-            <LinearGradient
-              colors={[colors.topGradientStart, colors.topGradientEnd]}
-              style={StyleSheet.absoluteFill}
-            />
             <View
               style={[styles.BlogScreenHeaderInset, { paddingTop: insets.top }]}
             >
@@ -167,7 +156,7 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }
@@ -181,9 +170,7 @@ const styles = StyleSheet.create({
   BlogScreenBackground: {
     flex: 1,
   },
-  BlogScreenArticleHeaderChassis: {
-    overflow: 'hidden',
-  },
+  BlogScreenArticleHeaderChassis: {},
   BlogScreenArticleHeaderInset: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -207,9 +194,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 
-  BlogScreenHeaderChassis: {
-    overflow: 'hidden',
-  },
+  BlogScreenHeaderChassis: {},
   BlogScreenHeaderInset: {
     paddingHorizontal: 16,
   },

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ImageBackground,
   Pressable,
   ScrollView,
   Share,
@@ -76,10 +75,9 @@ export function ChallengeScreen({
     const incorrect = QUIZ_QUESTIONS.length - score;
     return (
       <View style={styles.ChallengeScreenFacetChassis}>
-        <ImageBackground
-          source={require('../assets/into-frozen-explorer-background.png')}
+        <LinearGradient
+          colors={[colors.bgGradientTop, colors.bgGradientBottom]}
           style={styles.ChallengeScreenBackground}
-          resizeMode="cover"
         >
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -177,17 +175,16 @@ export function ChallengeScreen({
           </ScrollView>
 
           <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-        </ImageBackground>
+        </LinearGradient>
       </View>
     );
   }
 
   return (
     <View style={styles.ChallengeScreenFacetChassis}>
-      <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+      <LinearGradient
+        colors={[colors.bgGradientTop, colors.bgGradientBottom]}
         style={styles.ChallengeScreenBackground}
-        resizeMode="cover"
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -277,7 +274,7 @@ export function ChallengeScreen({
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
-      </ImageBackground>
+      </LinearGradient>
     </View>
   );
 }

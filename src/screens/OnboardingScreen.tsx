@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     maxHeight: 340,
     width: '100%',
   },
+
   OnboardingScreenCardChassis: {
     backgroundColor: colors.onboardCard,
     borderColor: colors.onboardCardBorder,

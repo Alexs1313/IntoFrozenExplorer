@@ -2,13 +2,21 @@ import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts, radius } from '../../constants/theme';
 import { Place } from '../../types/places';
+import { LockedOverlay } from '../premium/LockedOverlay';
 
 type PlaceCardProps = {
   place: Place;
   onPress: () => void;
+  locked?: boolean;
+  onOpenPremium?: () => void;
 };
 
-export function PlaceCard({ place, onPress }: PlaceCardProps) {
+export function PlaceCard({
+  place,
+  onPress,
+  locked,
+  onOpenPremium,
+}: PlaceCardProps) {
   return (
     <View style={styles.PlaceCardFacetChassis}>
       <Image
@@ -28,6 +36,8 @@ export function PlaceCard({ place, onPress }: PlaceCardProps) {
           resizeMode="contain"
         />
       </Pressable>
+
+      {locked && onOpenPremium && <LockedOverlay onPress={onOpenPremium} />}
     </View>
   );
 }

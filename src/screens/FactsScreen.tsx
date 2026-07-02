@@ -13,6 +13,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
+import { PremiumBadge } from '../components/buttons/PremiumBadge';
+
 import { FACTS } from '../data/facts';
 
 import { colors, fonts, radius, spacing } from '../constants/theme';
@@ -20,6 +22,7 @@ import { colors, fonts, radius, spacing } from '../constants/theme';
 type FactsScreenProps = {
   savedIds: Set<number>;
   onToggleSave: (id: number) => void;
+  onOpenPremium: () => void;
   activeTab: number;
   onTabPress: (index: number) => void;
 };
@@ -27,6 +30,7 @@ type FactsScreenProps = {
 export function FactsScreen({
   savedIds,
   onToggleSave,
+  onOpenPremium,
   activeTab,
   onTabPress,
 }: FactsScreenProps) {
@@ -58,7 +62,12 @@ export function FactsScreen({
                 { paddingTop: insets.top },
               ]}
             >
-              <Text style={styles.FactsScreenTitleFiligree}>Winter Facts</Text>
+              <View style={styles.FactsScreenTitleRow}>
+                <Text style={styles.FactsScreenTitleFiligree}>
+                  Winter Facts
+                </Text>
+                <PremiumBadge onPress={onOpenPremium} />
+              </View>
             </View>
           </View>
 
@@ -76,8 +85,9 @@ export function FactsScreen({
 
                   <View style={styles.FactsScreenActionsLintel}>
                     <Pressable
-                      onPress={() => Share.share({message: item.text})}
-                      style={styles.FactsScreenSharePortico}>
+                      onPress={() => Share.share({ message: item.text })}
+                      style={styles.FactsScreenSharePortico}
+                    >
                       <LinearGradient
                         colors={[colors.shareGradStart, colors.shareGradEnd]}
                         start={{ x: 0, y: 0 }}
@@ -154,6 +164,11 @@ const styles = StyleSheet.create({
   },
   FactsScreenListChassis: {
     paddingHorizontal: 16,
+  },
+  FactsScreenTitleRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   FactsScreenTitleFiligree: {
     color: colors.white,

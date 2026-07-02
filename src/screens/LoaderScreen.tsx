@@ -1,11 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import {
-  Animated,
-  Easing,
-  ImageBackground,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import { Animated, Easing, ImageBackground, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts } from '../constants/theme';
 
@@ -21,7 +15,7 @@ export function LoaderScreen({ onDone }: Props) {
   useEffect(() => {
     Animated.timing(progressValue, {
       toValue: 1,
-      duration: 5000,
+      duration: 3000,
       easing: Easing.linear,
       useNativeDriver: false,
     }).start();
@@ -43,7 +37,7 @@ export function LoaderScreen({ onDone }: Props) {
       ]),
     ).start();
 
-    const timer = setTimeout(onDone, 5000);
+    const timer = setTimeout(onDone, 3000);
     return () => clearTimeout(timer);
   }, [onDone, progressValue, scaleValue]);
 

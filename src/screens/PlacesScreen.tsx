@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PlaceCard } from '../components/places/PlaceCard';
+import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { PLACE_CATEGORIES, PLACES } from '../data/places';
 import { PlaceCategory } from '../types/places';
@@ -19,12 +20,14 @@ import { colors, fonts, radius, spacing } from '../constants/theme';
 
 type PlacesScreenProps = {
   onOpenPlace: (id: string) => void;
+  onOpenPremium: () => void;
   activeTab: number;
   onTabPress: (index: number) => void;
 };
 
 export function PlacesScreen({
   onOpenPlace,
+  onOpenPremium,
   activeTab,
   onTabPress,
 }: PlacesScreenProps) {
@@ -60,16 +63,25 @@ export function PlacesScreen({
                 { paddingTop: insets.top },
               ]}
             >
-              <Text style={styles.PlacesScreenTitleFiligree}>Places</Text>
+              <View style={{ paddingHorizontal: 16, marginBottom: 15 }}>
+                <View style={styles.PlacesScreenTitleRow}>
+                  <Text style={styles.PlacesScreenTitleFiligree}>Places</Text>
+                  <PremiumBadge onPress={onOpenPremium} />
+                </View>
 
-              <View style={styles.PlacesScreenSearchLintel}>
-                <Text style={styles.PlacesScreenSearchEmojiSigil}>🔍</Text>
-                <Text style={styles.PlacesScreenSearchFiligree}>
-                  Search places...
-                </Text>
+                <View style={styles.PlacesScreenSearchLintel}>
+                  <Text style={styles.PlacesScreenSearchEmojiSigil}>🔍</Text>
+                  <Text style={styles.PlacesScreenSearchFiligree}>
+                    Search places...
+                  </Text>
+                </View>
               </View>
 
-              <View style={styles.PlacesScreenChipsLintel}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.PlacesScreenChipsLintel}
+              >
                 {PLACE_CATEGORIES.map(cat => (
                   <Pressable
                     key={cat.key}
@@ -85,7 +97,7 @@ export function PlacesScreen({
                     </Text>
                   </Pressable>
                 ))}
-              </View>
+              </ScrollView>
             </View>
           </View>
 
@@ -95,6 +107,8 @@ export function PlacesScreen({
                 key={item.id}
                 place={item}
                 onPress={() => onOpenPlace(item.id)}
+                locked={item.premium}
+                onOpenPremium={onOpenPremium}
               />
             ))}
           </View>
@@ -120,14 +134,17 @@ const styles = StyleSheet.create({
   PlacesScreenHeaderChassis: {
     overflow: 'hidden',
   },
-  PlacesScreenHeaderInset: {
-    paddingHorizontal: 16,
-  },
+  PlacesScreenHeaderInset: {},
   PlacesScreenListChassis: {
     paddingTop: 4,
     paddingHorizontal: 16,
   },
 
+  PlacesScreenTitleRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   PlacesScreenTitleFiligree: {
     color: colors.white,
     fontFamily: fonts.sansBold,
@@ -161,6 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     marginBottom: 15,
+    paddingLeft: 16,
   },
 
   PlacesScreenChipPortico: {
@@ -172,7 +190,7 @@ const styles = StyleSheet.create({
     height: 34,
     justifyContent: 'center',
     overflow: 'hidden',
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
   },
   PlacesScreenChipInactivePortico: {
     opacity: 0.72,

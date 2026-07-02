@@ -11,7 +11,7 @@ export const PLACES: Place[] = [
     category: 'frozen-lakes',
     image: require('../assets/into-frozen-explorer-lake-baikal-ice.png'),
     description:
-      'Lake Baikal in winter turns into one of the most famous natural phenomena on the planet. The deepest lake in the world is covered with transparent ice, through which you can see cracks, air bubbles and underwater structures at considerable depths. The thickness of the ice often exceeds one meter, which allows you to move on its surface over long distances. Baikal is located in Siberia and contains about twenty percent of the world\'s fresh water reserves. In winter, amazing ice caves, grottos and natural sculptures created by wind and frost form here. The area near Olkhon Island is especially popular, where you can see huge blue ice formations.',
+      'Lake Baikal in winter turns into one of the most famous natural phenomena on the planet. The deepest lake in the world is covered with transparent ice, through which you can see cracks, air bubbles and underwater structures at considerable depths. The thickness of the ice often exceeds one meter, which allows you to move on its surface over long distances. Baikal is located in Siberia and contains about twenty percent of the world\'s fresh water reserves. In winter, amazing ice caves, grottos and natural sculptures created by wind and frost form here. The region near Olkhon Island is especially popular, where you can see huge blue ice formations.',
   },
   {
     id: 'abraham-lake',
@@ -21,6 +21,7 @@ export const PLACES: Place[] = [
     lng: -117.2445,
     category: 'frozen-lakes',
     image: require('../assets/into-frozen-explorer-abraham-lake.png'),
+    premium: true,
     description:
       'Abraham Lake in the Canadian province of Alberta has become famous for its unusual frozen methane bubbles that form under the ice. In winter, the surface of the reservoir turns into a natural gallery, where thousands of white bubbles appear as if frozen in time. They arise from the decomposition of organic matter at the bottom of the lake. As the gas rises, the frost gradually forms new layers of ice, trapping the bubbles inside. The snow-capped peaks of the Canadian Rockies are located around, which add special drama to the landscapes.',
   },
@@ -43,8 +44,9 @@ export const PLACES: Place[] = [
     lng: -116.1773,
     category: 'frozen-lakes',
     image: require('../assets/into-frozen-explorer-lake-louise.png'),
+    premium: true,
     description:
-      'Lake Louise is located in the heart of the Canadian Rockies and is considered one of the most famous lakes in the world. In winter, the turquoise water is hidden under a thick layer of ice and snow, and the surrounding peaks turn the area into a real winter postcard. The lake is surrounded by majestic mountains, among which Mount Victoria stands out, creating a recognizable silhouette in many photographs. In the cold season, the surface of the lake becomes a natural playground for walks and winter activities.',
+      'Lake Louise is located in the heart of the Canadian Rockies and is considered one of the most famous lakes in the world. In winter, the turquoise water is hidden under a thick layer of ice and snow, and the surrounding peaks turn the region into a real winter postcard. The lake is surrounded by majestic mountains, among which Mount Victoria stands out, creating a recognizable silhouette in many photographs. In the cold season, the surface of the lake becomes a natural playground for walks and winter activities.',
   },
   {
     id: 'lake-inari',
@@ -65,6 +67,7 @@ export const PLACES: Place[] = [
     lng: -16.1794,
     category: 'frozen-lakes',
     image: require('../assets/into-frozen-explorer-jokulsarlon-glacier-lagoon.png'),
+    premium: true,
     description:
       'Jökulsárlón is one of the most famous glacial lagoons in Iceland. In winter, you can see huge blocks of ice breaking off from the Breiðamerkurjökull glacier and slowly drifting across the surface of the lagoon. Some icebergs have a deep blue color due to the high density of the ice, which creates amazing contrasts with the surrounding snow and dark water. Individual ice fragments fall onto the coast, forming the famous Diamond Beach, where ice shines on the black volcanic sand like precious stones.',
   },
@@ -100,6 +103,7 @@ export const PLACES: Place[] = [
     lng: 136.8998,
     category: 'snow-villages',
     image: require('../assets/into-frozen-explorer-shirakawa-go.png'),
+    premium: true,
     description:
       'Shirakawa-go is a historic Japanese village nestled in the mountains of Gifu Prefecture. It is famous for its traditional gasso-zukuri style houses with steep thatched roofs. This design was created specifically for the region with a lot of snow so that heavy winter precipitation does not accumulate on the roof. In winter, the village looks especially magical: the houses are covered with a thick layer of snow, and the evening illumination creates the atmosphere of an old Christmas card.',
   },
@@ -122,6 +126,7 @@ export const PLACES: Place[] = [
     lng: 7.7491,
     category: 'snow-villages',
     image: require('../assets/into-frozen-explorer-zermatt.png'),
+    premium: true,
     description:
       'Zermatt is one of the most famous mountain resorts in Switzerland, located at the foot of the legendary Matterhorn peak. In winter, the town turns into a real center of Alpine atmosphere. The streets are filled with warm light, wooden chalets are covered with snow, and the surrounding slopes become part of one of the largest ski regions in Europe. A feature of Zermatt is the almost complete absence of cars with internal combustion engines, which helps to preserve clean air and a calm atmosphere.',
   },
@@ -144,6 +149,7 @@ export const PLACES: Place[] = [
     lng: 7.3585,
     category: 'snow-villages',
     image: require('../assets/into-frozen-explorer-colmar.png'),
+    premium: true,
     description:
       'Colmar is located in the east of France in the historic region of Alsace. The city is known for its colorful half-timbered houses, canals, and medieval architecture. In winter, it takes on a special atmosphere thanks to festive illuminations, snow-covered streets, and an abundance of decorative decorations. Many travelers call Colmar one of the most fairy-tale cities in Europe. Its "Little Venice" quarter looks especially picturesque when the old houses are reflected in the water between light snowdrifts.',
   },
@@ -179,6 +185,7 @@ export const PLACES: Place[] = [
     lng: 140.4204,
     category: 'winter-wonders',
     image: require('../assets/into-frozen-explorer-snow-monsters-zao.png'),
+    premium: true,
     description:
       'In the Japanese Zao Mountains in winter, you can see one of the most bizarre natural phenomena in the world — the so-called "snow monsters". In fact, these are trees that are covered with thick layers of ice and snow under the influence of strong winds and low temperatures. Gradually, they acquire fantastic shapes that resemble giant creatures or stone statues. In the evening, part of the slopes are illuminated with multi-colored lights, which makes the snow figures look even more mystical.',
   },
@@ -201,6 +208,7 @@ export const PLACES: Place[] = [
     lng: -134.5348,
     category: 'winter-wonders',
     image: require('../assets/into-frozen-explorer-mendenhall-ice-caves.png'),
+    premium: true,
     description:
       'The Mendenhall Ice Caves are located under the Mendenhall Glacier in Alaska and are considered one of the most unusual winter places in North America. Inside the caves, light passes through the thickness of the ice and creates a rich blue glow that is almost impossible to see in other natural conditions. The glacier is constantly changing, so the shape of the caves is also gradually transformed. The ice caves resemble the scenery of a fantasy film, although in fact they are created exclusively by the forces of nature.',
   },
@@ -223,6 +231,7 @@ export const PLACES: Place[] = [
     lng: 8.0303,
     category: 'winter-wonders',
     image: require('../assets/into-frozen-explorer-aletsch-glacier.png'),
+    premium: true,
     description:
       'The Aletsch Glacier is the largest glacier in the Alps and one of Switzerland\'s most spectacular winter destinations. Stretching for over 20 kilometers, it offers breathtaking views of snow-covered peaks, sparkling ice, and deep glacial valleys. As part of the UNESCO World Heritage Site, it attracts nature lovers and photographers from around the world. During winter, visitors can reach panoramic viewpoints by cable car and enjoy unforgettable views across the frozen Alpine landscape.',
   },

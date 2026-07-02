@@ -14,7 +14,9 @@ import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
+import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { PLACES } from '../data/places';
+
 import { colors, fonts, radius, spacing } from '../constants/theme';
 
 type PlaceDetailScreenProps = {
@@ -22,6 +24,7 @@ type PlaceDetailScreenProps = {
   onBack: () => void;
   isSaved: boolean;
   onToggleSave: () => void;
+  onOpenPremium: () => void;
   activeTab: number;
   onTabPress: (index: number) => void;
 };
@@ -31,20 +34,21 @@ export function PlaceDetailScreen({
   onBack,
   isSaved,
   onToggleSave,
+  onOpenPremium,
   activeTab,
   onTabPress,
 }: PlaceDetailScreenProps) {
   const insets = useSafeAreaInsets();
   const [showMap, setShowMap] = useState(false);
 
-  const place = PLACES.find(p => p.id === placeId)!
+  const place = PLACES.find(p => p.id === placeId)!;
 
   const handleShare = () => {
     Share.share({
       title: place.name,
       message: `${place.name}\n\nCoordinates: ${place.coordinates}\n\n${place.description}`,
     });
-  };;
+  };
 
   return (
     <View style={styles.PlaceDetailScreenFacetChassis}>
@@ -71,18 +75,21 @@ export function PlaceDetailScreen({
               { paddingTop: insets.top },
             ]}
           >
-            <Pressable
-              onPress={onBack}
-              style={styles.PlaceDetailScreenBackPortico}
-              hitSlop={12}
-            >
-              <Image
-                source={require('../assets/into-frozen-explorer-backarrow.png')}
-                style={styles.PlaceDetailScreenBackArrowSigil}
-                resizeMode="contain"
-              />
-            </Pressable>
-            <Text style={styles.PlaceDetailScreenTitleFiligree}>Places</Text>
+            <View style={styles.PlaceDetailScreenHeaderLeftLintel}>
+              <Pressable
+                onPress={onBack}
+                style={styles.PlaceDetailScreenBackPortico}
+                hitSlop={12}
+              >
+                <Image
+                  source={require('../assets/into-frozen-explorer-backarrow.png')}
+                  style={styles.PlaceDetailScreenBackArrowSigil}
+                  resizeMode="contain"
+                />
+              </Pressable>
+              <Text style={styles.PlaceDetailScreenTitleFiligree}>Places</Text>
+            </View>
+            <PremiumBadge onPress={onOpenPremium} />
           </View>
           {/* Card */}
           <View style={styles.PlaceDetailScreenCardChassis}>
@@ -177,7 +184,10 @@ export function PlaceDetailScreen({
 
                 {/* Action buttons */}
                 <View style={styles.PlaceDetailScreenActionsLintel}>
-                  <Pressable onPress={handleShare} style={styles.PlaceDetailScreenSharePortico}>
+                  <Pressable
+                    onPress={handleShare}
+                    style={styles.PlaceDetailScreenSharePortico}
+                  >
                     <LinearGradient
                       colors={[colors.shareGradStart, colors.shareGradEnd]}
                       start={{ x: 0, y: 0 }}
@@ -256,9 +266,14 @@ const styles = StyleSheet.create({
   PlaceDetailScreenHeaderLintel: {
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingBottom: 8,
     marginBottom: 12,
     paddingHorizontal: 16,
+  },
+  PlaceDetailScreenHeaderLeftLintel: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   PlaceDetailScreenBackPortico: {
     marginRight: 8,
@@ -351,6 +366,8 @@ const styles = StyleSheet.create({
   PlaceDetailScreenMapSigil: {
     height: 360,
     margin: 14,
+    borderRadius: 22,
+    overflow: 'hidden',
   },
 
   PlaceDetailScreenActionsLintel: {

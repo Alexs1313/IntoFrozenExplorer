@@ -13,16 +13,24 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
+import { PremiumBadge } from '../components/buttons/PremiumBadge';
+import { LockedOverlay } from '../components/premium/LockedOverlay';
+
 import { ARTICLES } from '../data/blog';
 
 import { colors, fonts, radius, spacing } from '../constants/theme';
 
 type BlogScreenProps = {
+  onOpenPremium: () => void;
   activeTab: number;
   onTabPress: (index: number) => void;
 };
 
-export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
+export function BlogScreen({
+  onOpenPremium,
+  activeTab,
+  onTabPress,
+}: BlogScreenProps) {
   const insets = useSafeAreaInsets();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -57,18 +65,23 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
                   { paddingTop: insets.top },
                 ]}
               >
-                <Pressable
-                  onPress={() => setSelectedId(null)}
-                  style={styles.BlogScreenBackPortico}
-                  hitSlop={12}
-                >
-                  <Image
-                    source={require('../assets/into-frozen-explorer-backarrow.png')}
-                    style={styles.BlogScreenBackArrowSigil}
-                    resizeMode="contain"
-                  />
-                </Pressable>
-                <Text style={styles.BlogScreenTitleFiligree}>Winter Blog</Text>
+                <View style={styles.BlogScreenArticleHeaderLeftLintel}>
+                  <Pressable
+                    onPress={() => setSelectedId(null)}
+                    style={styles.BlogScreenBackPortico}
+                    hitSlop={12}
+                  >
+                    <Image
+                      source={require('../assets/into-frozen-explorer-backarrow.png')}
+                      style={styles.BlogScreenBackArrowSigil}
+                      resizeMode="contain"
+                    />
+                  </Pressable>
+                  <Text style={styles.BlogScreenTitleFiligree}>
+                    Winter Blog
+                  </Text>
+                </View>
+                <PremiumBadge onPress={onOpenPremium} />
               </View>
             </View>
 
@@ -83,11 +96,16 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
               ))}
 
               <Pressable
-                onPress={() => Share.share({
-                  title: article.title,
-                  message: `${article.title}\n\n${article.paragraphs.join('\n\n')}`,
-                })}
-                style={styles.BlogScreenSharePortico}>
+                onPress={() =>
+                  Share.share({
+                    title: article.title,
+                    message: `${article.title}\n\n${article.paragraphs.join(
+                      '\n\n',
+                    )}`,
+                  })
+                }
+                style={styles.BlogScreenSharePortico}
+              >
                 <LinearGradient
                   colors={[colors.shareGradStart, colors.shareGradEnd]}
                   start={{ x: 0, y: 0 }}
@@ -134,12 +152,15 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
             <View
               style={[styles.BlogScreenHeaderInset, { paddingTop: insets.top }]}
             >
-              <Text style={styles.BlogScreenTitleFiligree}>Winter Blog</Text>
+              <View style={styles.BlogScreenTitleRow}>
+                <Text style={styles.BlogScreenTitleFiligree}>Winter Blog</Text>
+                <PremiumBadge onPress={onOpenPremium} />
+              </View>
             </View>
           </View>
 
           <View style={styles.BlogScreenListChassis}>
-            {ARTICLES.map(item => (
+            {ARTICLES.map((item, index) => (
               <View key={item.id} style={styles.BlogScreenCardChassis}>
                 <Text style={styles.BlogScreenCardTitleFiligree}>
                   {item.title}
@@ -161,6 +182,8 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
                     resizeMode="contain"
                   />
                 </Pressable>
+
+                {index % 3 === 2 && <LockedOverlay onPress={onOpenPremium} />}
               </View>
             ))}
           </View>
@@ -184,11 +207,17 @@ const styles = StyleSheet.create({
   BlogScreenArticleHeaderChassis: {
     overflow: 'hidden',
   },
+
   BlogScreenArticleHeaderInset: {
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingBottom: 8,
     paddingHorizontal: 16,
+  },
+  BlogScreenArticleHeaderLeftLintel: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   BlogScreenBackPortico: {
     marginRight: 8,
@@ -214,6 +243,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 
+  BlogScreenTitleRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   BlogScreenTitleFiligree: {
     color: colors.white,
     fontFamily: fonts.sansBold,
@@ -225,6 +259,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 4,
   },
+
   BlogScreenCardChassis: {
     backgroundColor: colors.card,
     borderColor: colors.cardBorder,

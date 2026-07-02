@@ -13,18 +13,21 @@ import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
+import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { PLACES } from '../data/places';
 import { Place } from '../types/places';
 import { colors, fonts, radius } from '../constants/theme';
 
 type MapScreenProps = {
   onOpenPlace: (id: string) => void;
+  onOpenPremium: () => void;
   activeTab: number;
   onTabPress: (index: number) => void;
 };
 
 export function MapScreen({
   onOpenPlace,
+  onOpenPremium,
   activeTab,
   onTabPress,
 }: MapScreenProps) {
@@ -60,20 +63,23 @@ export function MapScreen({
           <View
             style={[styles.MapScreenHeaderLintel, { paddingTop: insets.top }]}
           >
-            {selectedPlace ? (
-              <Pressable
-                onPress={handleBack}
-                style={styles.MapScreenBackPortico}
-                hitSlop={12}
-              >
-                <Image
-                  source={require('../assets/into-frozen-explorer-backarrow.png')}
-                  style={styles.MapScreenBackArrowSigil}
-                  resizeMode="contain"
-                />
-              </Pressable>
-            ) : null}
-            <Text style={styles.MapScreenTitleFiligree}>Map</Text>
+            <View style={styles.MapScreenHeaderLeftLintel}>
+              {selectedPlace ? (
+                <Pressable
+                  onPress={handleBack}
+                  style={styles.MapScreenBackPortico}
+                  hitSlop={12}
+                >
+                  <Image
+                    source={require('../assets/into-frozen-explorer-backarrow.png')}
+                    style={styles.MapScreenBackArrowSigil}
+                    resizeMode="contain"
+                  />
+                </Pressable>
+              ) : null}
+              <Text style={styles.MapScreenTitleFiligree}>Map</Text>
+            </View>
+            <PremiumBadge onPress={onOpenPremium} />
           </View>
 
           {/* Map container */}
@@ -156,8 +162,13 @@ const styles = StyleSheet.create({
   MapScreenHeaderLintel: {
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingBottom: 18,
     paddingHorizontal: 16,
+  },
+  MapScreenHeaderLeftLintel: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   MapScreenBackPortico: {
     marginRight: 8,
@@ -166,6 +177,7 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
   },
+
   MapScreenBackFiligree: {
     color: colors.white,
     fontFamily: fonts.sansBold,

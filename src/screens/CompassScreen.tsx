@@ -12,17 +12,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
+import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { MOODS } from '../data/compass';
+
 import { colors, fonts, radius, spacing } from '../constants/theme';
 
 type CompassScreenProps = {
   onOpenPlace: (id: string) => void;
+  onOpenPremium: () => void;
   activeTab: number;
   onTabPress: (index: number) => void;
 };
 
 export function CompassScreen({
   onOpenPlace,
+  onOpenPremium,
   activeTab,
   onTabPress,
 }: CompassScreenProps) {
@@ -55,9 +59,12 @@ export function CompassScreen({
                 { paddingTop: insets.top },
               ]}
             >
-              <Text style={styles.CompassScreenTitleFiligree}>
-                Winter Mood Compass
-              </Text>
+              <View style={styles.CompassScreenTitleRow}>
+                <Text style={styles.CompassScreenTitleFiligree}>
+                  Winter Mood Compass
+                </Text>
+                <PremiumBadge onPress={onOpenPremium} />
+              </View>
             </View>
           </View>
 
@@ -136,6 +143,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 
+  CompassScreenTitleRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   CompassScreenTitleFiligree: {
     color: colors.white,
     fontFamily: fonts.sansBold,

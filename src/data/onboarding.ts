@@ -43,8 +43,16 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     background: require('../assets/into-frozen-explorer-onboard-bg.png'),
+    overlay: require('../assets/into-frozen-explorer-onboardimg6.png'),
+    title: 'Unlock Winter Premium',
+    description:
+      'Access exclusive winter locations and additional blog articles. Explore more destinations, discover fresh travel inspiration, and enjoy the complete winter experience.',
+    buttonLabel: 'Next',
+  },
+  {
+    background: require('../assets/into-frozen-explorer-onboard-bg.png'),
     overlay: require('../assets/into-frozen-explorer-onboardimg5.png'),
-    title: 'Let your mood choose\nthe route',
+    title: 'Let your mood choose\nthe path',
     description:
       'Winter Mood Compass will help you find the place that is best suited for your next winter trip.',
     buttonLabel: 'Start exploring',

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { AnimatedPressable } from '../animated/AnimatedPressable';
 import { colors, fonts } from '../../constants/theme';
 
 type LockedOverlayProps = {
@@ -9,9 +10,11 @@ type LockedOverlayProps = {
 
 export function LockedOverlay({ onPress }: LockedOverlayProps) {
   return (
-    <Pressable
+    <AnimatedPressable
       onPress={onPress}
-      style={[StyleSheet.absoluteFill, styles.LockedOverlayFill]}
+      scaleStyle={StyleSheet.absoluteFill}
+      style={styles.LockedOverlayFill}
+      activeScale={0.97}
     >
       <View style={[StyleSheet.absoluteFill, styles.LockedOverlayTintSigil]} />
 
@@ -54,13 +57,14 @@ export function LockedOverlay({ onPress }: LockedOverlayProps) {
       <Text style={styles.LockedOverlayAvailableFiligree}>
         Available with Premium
       </Text>
-    </Pressable>
+    </AnimatedPressable>
   );
 }
 
 const styles = StyleSheet.create({
   LockedOverlayFill: {
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
   },
   LockedOverlayTintSigil: {

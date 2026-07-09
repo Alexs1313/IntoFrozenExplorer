@@ -7,11 +7,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { colors, fonts, spacing } from '../constants/theme';
 
@@ -47,7 +48,7 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
   return (
     <View style={styles.PremiumScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.PremiumScreenBackground}
         resizeMode="cover"
       >
@@ -69,93 +70,109 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
               { paddingTop: insets.top },
             ]}
           >
-            <Pressable
+            <AnimatedPressable
               onPress={onBack}
               style={styles.PremiumScreenBackPortico}
               hitSlop={12}
             >
               <Image
-                source={require('../assets/into-frozen-explorer-backarrow.png')}
+                source={require('../assets/froz-explrr-backarrow.png')}
                 style={styles.PremiumScreenBackArrowSigil}
                 resizeMode="contain"
               />
               <Text style={styles.PremiumScreenBackFiligree}>Back</Text>
-            </Pressable>
+            </AnimatedPressable>
 
             <PremiumBadge onPress={() => {}} />
           </View>
 
-          <Image
-            source={require('../assets/premiumiconlarge.png')}
-            style={styles.PremiumScreenHeroIconSigil}
-            resizeMode="contain"
-          />
+          <FadeSlideIn style={styles.PremiumScreenBodyLintel}>
+            <Image
+              source={require('../assets/premiumiconlarge.png')}
+              style={styles.PremiumScreenHeroIconSigil}
+              resizeMode="contain"
+            />
 
-          <Text style={styles.PremiumScreenTitleFiligree}>
-            UNLOCK YOUR{'\n'}PREMIUM
-          </Text>
+            <Text style={styles.PremiumScreenTitleFiligree}>
+              UNLOCK YOUR{'\n'}PREMIUM
+            </Text>
 
-          <LinearGradient
-            colors={[colors.btnGradientStart, colors.btnGradientEnd]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.PremiumScreenPriceCardChassis}
-          >
-            <View style={{ paddingTop: 20, paddingHorizontal: 20, flex: 1 }}>
-              <Text style={styles.PremiumScreenPriceLabelFiligree}>
-                PREMIUM ACCESS
-              </Text>
-              <View style={styles.PremiumScreenPriceRowLintel}>
-                <Text style={styles.PremiumScreenPriceFiligree}>$1.99</Text>
-              </View>
-            </View>
-          </LinearGradient>
-
-          <Text style={styles.PremiumScreenIncludedLabelFiligree}>
-            WHAT'S INCLUDED
-          </Text>
-
-          <View style={styles.PremiumScreenFeaturesLintel}>
-            {FEATURES.map(feature => (
-              <View key={feature.title} style={styles.PremiumScreenFeatureCard}>
-                <View style={styles.PremiumScreenFeatureDotSigil} />
-                <View style={styles.PremiumScreenFeatureTextLintel}>
-                  <Text style={styles.PremiumScreenFeatureTitleFiligree}>
-                    {feature.title}
-                  </Text>
-                  <Text style={styles.PremiumScreenFeatureSubtitleFiligree}>
-                    {feature.subtitle}
-                  </Text>
-                </View>
-                <View style={styles.PremiumScreenFeatureCheckPortico}>
-                  <Text style={styles.PremiumScreenFeatureCheckFiligree}>
-                    ✓
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </View>
-
-          <Pressable
-            onPress={handleBuyPress}
-            style={styles.PremiumScreenBuyPortico}
-          >
             <LinearGradient
               colors={[colors.btnGradientStart, colors.btnGradientEnd]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
-              style={styles.PremiumScreenBuyLintel}
+              style={styles.PremiumScreenPriceCardChassis}
             >
-              <Image
-                source={require('../assets/premicon.png')}
-                style={styles.PremiumScreenBuyIconSigil}
-                resizeMode="contain"
-              />
-              <Text style={styles.PremiumScreenBuyFiligree}>
-                Buy Premium — $1.99
-              </Text>
+              <View style={{ paddingTop: 20, paddingHorizontal: 20, flex: 1 }}>
+                <Text style={styles.PremiumScreenPriceLabelFiligree}>
+                  PREMIUM ACCESS
+                </Text>
+                <View style={styles.PremiumScreenPriceRowLintel}>
+                  <Text style={styles.PremiumScreenPriceFiligree}>$1.99</Text>
+                  <Text
+                    style={{
+                      bottom: 10,
+                      fontSize: 15,
+                      fontWeight: '700',
+                      color: '#fff',
+                    }}
+                  >
+                    / m
+                  </Text>
+                </View>
+              </View>
             </LinearGradient>
-          </Pressable>
+
+            <Text style={styles.PremiumScreenIncludedLabelFiligree}>
+              WHAT'S INCLUDED
+            </Text>
+
+            <View style={styles.PremiumScreenFeaturesLintel}>
+              {FEATURES.map((feature, index) => (
+                <FadeSlideIn
+                  key={feature.title}
+                  delay={150 + index * 70}
+                  style={styles.PremiumScreenFeatureCard}
+                >
+                  <View style={styles.PremiumScreenFeatureDotSigil} />
+                  <View style={styles.PremiumScreenFeatureTextLintel}>
+                    <Text style={styles.PremiumScreenFeatureTitleFiligree}>
+                      {feature.title}
+                    </Text>
+                    <Text style={styles.PremiumScreenFeatureSubtitleFiligree}>
+                      {feature.subtitle}
+                    </Text>
+                  </View>
+                  <View style={styles.PremiumScreenFeatureCheckPortico}>
+                    <Text style={styles.PremiumScreenFeatureCheckFiligree}>
+                      ✓
+                    </Text>
+                  </View>
+                </FadeSlideIn>
+              ))}
+            </View>
+
+            <AnimatedPressable
+              onPress={handleBuyPress}
+              style={styles.PremiumScreenBuyPortico}
+            >
+              <LinearGradient
+                colors={[colors.btnGradientStart, colors.btnGradientEnd]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.PremiumScreenBuyLintel}
+              >
+                <Image
+                  source={require('../assets/premicon.png')}
+                  style={styles.PremiumScreenBuyIconSigil}
+                  resizeMode="contain"
+                />
+                <Text style={styles.PremiumScreenBuyFiligree}>
+                  Buy Premium — $1.99 m
+                </Text>
+              </LinearGradient>
+            </AnimatedPressable>
+          </FadeSlideIn>
         </ScrollView>
       </ImageBackground>
     </View>
@@ -189,6 +206,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 24,
     paddingBottom: 8,
+  },
+  PremiumScreenBodyLintel: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
   },
 
   PremiumScreenBackPortico: {
@@ -329,7 +350,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.sansBold,
   },
   PremiumScreenBuyPortico: {
-    alignSelf: 'stretch',
     borderRadius: 16,
     overflow: 'hidden',
     shadowColor: colors.premiumBuyGlow,
@@ -346,6 +366,7 @@ const styles = StyleSheet.create({
     gap: 10,
     height: 58,
     justifyContent: 'center',
+    width: '100%',
   },
 
   PremiumScreenBuyIconSigil: {

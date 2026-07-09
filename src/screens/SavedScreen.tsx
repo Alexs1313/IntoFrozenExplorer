@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   Share,
   StyleSheet,
@@ -12,6 +11,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { PlaceCard } from '../components/places/PlaceCard';
@@ -58,7 +59,7 @@ export function SavedScreen({
   return (
     <View style={styles.SavedScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.SavedScreenBackground}
         resizeMode="cover"
       >
@@ -100,7 +101,7 @@ export function SavedScreen({
 
             {/* Top tabs: Places | Winter Facts */}
             <View style={styles.SavedScreenTabsLintel}>
-              <Pressable
+              <AnimatedPressable
                 onPress={() => setSavedTab('places')}
                 style={[
                   styles.SavedScreenTabPortico,
@@ -108,8 +109,8 @@ export function SavedScreen({
                 ]}
               >
                 <Text style={styles.SavedScreenTabFiligree}>Places</Text>
-              </Pressable>
-              <Pressable
+              </AnimatedPressable>
+              <AnimatedPressable
                 onPress={() => setSavedTab('facts')}
                 style={[
                   styles.SavedScreenTabPortico,
@@ -117,14 +118,14 @@ export function SavedScreen({
                 ]}
               >
                 <Text style={styles.SavedScreenTabFiligree}>Winter Facts</Text>
-              </Pressable>
+              </AnimatedPressable>
             </View>
 
             {/* Sub-chips (Places only) */}
             {savedTab === 'places' && (
               <View style={styles.SavedScreenSubChipsLintel}>
                 {PLACE_CATEGORIES.map(cat => (
-                  <Pressable
+                  <AnimatedPressable
                     key={cat.key}
                     onPress={() => setPlaceCategory(cat.key)}
                     style={[
@@ -136,117 +137,119 @@ export function SavedScreen({
                     <Text style={styles.SavedScreenChipFiligree}>
                       {cat.label}
                     </Text>
-                  </Pressable>
+                  </AnimatedPressable>
                 ))}
               </View>
             )}
 
             {/* Content */}
-            {isEmpty ? (
-              <View style={styles.SavedScreenEmptyChassis}>
-                <View style={styles.SavedScreenEmptyCardChassis}>
-                  <Text style={styles.SavedScreenEmptyFiligree}>
-                    You don't have anything saved yet. Check out the app, you
-                    might find something you like!
-                  </Text>
-                </View>
+            <FadeSlideIn key={`${savedTab}-${placeCategory}`}>
+              {isEmpty ? (
+                <View style={styles.SavedScreenEmptyChassis}>
+                  <View style={styles.SavedScreenEmptyCardChassis}>
+                    <Text style={styles.SavedScreenEmptyFiligree}>
+                      You don't have anything saved yet. Check out the app, you
+                      might find something you like!
+                    </Text>
+                  </View>
 
-                <Pressable
-                  onPress={() => onTabPress(0)}
-                  style={{ width: '60%' }}
-                >
-                  {({ pressed }) => (
-                    <LinearGradient
-                      colors={[colors.btnGradientStart, colors.btnGradientEnd]}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      style={[
-                        styles.SavedScreenEmptyBtnLintel,
-                        pressed && styles.SavedScreenBtnPressedDim,
-                      ]}
-                    >
-                      <Text style={styles.SavedScreenEmptyBtnFiligree}>
-                        Places
-                      </Text>
-                    </LinearGradient>
-                  )}
-                </Pressable>
-
-                <Pressable
-                  onPress={() => onTabPress(2)}
-                  style={{ width: '60%' }}
-                >
-                  {({ pressed }) => (
-                    <LinearGradient
-                      colors={[colors.btnGradientStart, colors.btnGradientEnd]}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      style={[
-                        styles.SavedScreenEmptyBtnLintel,
-                        pressed && styles.SavedScreenBtnPressedDim,
-                      ]}
-                    >
-                      <Text style={styles.SavedScreenEmptyBtnFiligree}>
-                        Winter Facts
-                      </Text>
-                    </LinearGradient>
-                  )}
-                </Pressable>
-
-                <Image
-                  source={require('../assets/into-frozen-explorer-onboardimg4.png')}
-                  style={styles.SavedScreenEmptyImageSigil}
-                  resizeMode="contain"
-                />
-              </View>
-            ) : savedTab === 'places' ? (
-              savedPlaces.map(place => (
-                <PlaceCard
-                  key={place.id}
-                  place={place}
-                  onPress={() => onOpenPlace(place.id)}
-                />
-              ))
-            ) : (
-              savedFacts.map(fact => (
-                <View key={fact.id} style={styles.SavedScreenFactCardChassis}>
-                  <Text style={styles.SavedScreenFactLabelFiligree}>
-                    This is interesting:
-                  </Text>
-                  <Text style={styles.SavedScreenFactTextFiligree}>
-                    {fact.text}
-                  </Text>
-                  <View style={styles.SavedScreenFactActionsLintel}>
-                    <Pressable
-                      onPress={() => Share.share({message: fact.text})}
-                      style={styles.SavedScreenSharePortico}>
+                  <AnimatedPressable
+                    onPress={() => onTabPress(0)}
+                    scaleStyle={{ width: '60%' }}
+                  >
+                    {({ pressed }) => (
                       <LinearGradient
-                        colors={[colors.shareGradStart, colors.shareGradEnd]}
+                        colors={[colors.btnGradientStart, colors.btnGradientEnd]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
-                        style={styles.SavedScreenBtnLintel}
+                        style={[
+                          styles.SavedScreenEmptyBtnLintel,
+                          pressed && styles.SavedScreenBtnPressedDim,
+                        ]}
                       >
-                        <Image
-                          source={require('../assets/into-frozen-explorer-icon-share.png')}
-                          style={styles.SavedScreenIconSigil}
-                          resizeMode="contain"
-                        />
-                        <Text style={styles.SavedScreenBtnFiligree}>Share</Text>
+                        <Text style={styles.SavedScreenEmptyBtnFiligree}>
+                          Places
+                        </Text>
                       </LinearGradient>
-                    </Pressable>
-                    <Pressable
-                      onPress={() => onToggleSaveFact(fact.id)}
-                      style={styles.SavedScreenSavePortico}
-                    >
-                      <View style={styles.SavedScreenSaveOutlineLintel}>
-                        <Text style={styles.SavedScreenBtnEmojiSigil}>🤍</Text>
-                        <Text style={styles.SavedScreenBtnFiligree}>Save</Text>
-                      </View>
-                    </Pressable>
-                  </View>
+                    )}
+                  </AnimatedPressable>
+
+                  <AnimatedPressable
+                    onPress={() => onTabPress(2)}
+                    scaleStyle={{ width: '60%' }}
+                  >
+                    {({ pressed }) => (
+                      <LinearGradient
+                        colors={[colors.btnGradientStart, colors.btnGradientEnd]}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={[
+                          styles.SavedScreenEmptyBtnLintel,
+                          pressed && styles.SavedScreenBtnPressedDim,
+                        ]}
+                      >
+                        <Text style={styles.SavedScreenEmptyBtnFiligree}>
+                          Winter Facts
+                        </Text>
+                      </LinearGradient>
+                    )}
+                  </AnimatedPressable>
+
+                  <Image
+                    source={require('../assets/froz-explrr-onboardimg4.png')}
+                    style={styles.SavedScreenEmptyImageSigil}
+                    resizeMode="contain"
+                  />
                 </View>
-              ))
-            )}
+              ) : savedTab === 'places' ? (
+                savedPlaces.map(place => (
+                  <PlaceCard
+                    key={place.id}
+                    place={place}
+                    onPress={() => onOpenPlace(place.id)}
+                  />
+                ))
+              ) : (
+                savedFacts.map(fact => (
+                  <View key={fact.id} style={styles.SavedScreenFactCardChassis}>
+                    <Text style={styles.SavedScreenFactLabelFiligree}>
+                      This is interesting:
+                    </Text>
+                    <Text style={styles.SavedScreenFactTextFiligree}>
+                      {fact.text}
+                    </Text>
+                    <View style={styles.SavedScreenFactActionsLintel}>
+                      <AnimatedPressable
+                        onPress={() => Share.share({message: fact.text})}
+                        style={styles.SavedScreenSharePortico}>
+                        <LinearGradient
+                          colors={[colors.shareGradStart, colors.shareGradEnd]}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 0 }}
+                          style={styles.SavedScreenBtnLintel}
+                        >
+                          <Image
+                            source={require('../assets/froz-explrr-icon-share.png')}
+                            style={styles.SavedScreenIconSigil}
+                            resizeMode="contain"
+                          />
+                          <Text style={styles.SavedScreenBtnFiligree}>Share</Text>
+                        </LinearGradient>
+                      </AnimatedPressable>
+                      <AnimatedPressable
+                        onPress={() => onToggleSaveFact(fact.id)}
+                        style={styles.SavedScreenSavePortico}
+                      >
+                        <View style={styles.SavedScreenSaveOutlineLintel}>
+                          <Text style={styles.SavedScreenBtnEmojiSigil}>🤍</Text>
+                          <Text style={styles.SavedScreenBtnFiligree}>Save</Text>
+                        </View>
+                      </AnimatedPressable>
+                    </View>
+                  </View>
+                ))
+              )}
+            </FadeSlideIn>
           </View>
         </ScrollView>
 

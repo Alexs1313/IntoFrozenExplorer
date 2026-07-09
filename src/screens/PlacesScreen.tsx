@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   ImageBackground,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,6 +9,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { PlaceCard } from '../components/places/PlaceCard';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
@@ -40,7 +41,7 @@ export function PlacesScreen({
   return (
     <View style={styles.PlacesScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.PlacesScreenBackground}
         resizeMode="cover"
       >
@@ -83,7 +84,7 @@ export function PlacesScreen({
                 contentContainerStyle={styles.PlacesScreenChipsLintel}
               >
                 {PLACE_CATEGORIES.map(cat => (
-                  <Pressable
+                  <AnimatedPressable
                     key={cat.key}
                     onPress={() => setActiveCategory(cat.key)}
                     style={[
@@ -95,13 +96,13 @@ export function PlacesScreen({
                     <Text style={styles.PlacesScreenChipFiligree}>
                       {cat.label}
                     </Text>
-                  </Pressable>
+                  </AnimatedPressable>
                 ))}
               </ScrollView>
             </View>
           </View>
 
-          <View style={styles.PlacesScreenListChassis}>
+          <FadeSlideIn key={activeCategory} style={styles.PlacesScreenListChassis}>
             {filtered.map(item => (
               <PlaceCard
                 key={item.id}
@@ -111,7 +112,7 @@ export function PlacesScreen({
                 onOpenPremium={onOpenPremium}
               />
             ))}
-          </View>
+          </FadeSlideIn>
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />

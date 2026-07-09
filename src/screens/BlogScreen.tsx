@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   Share,
   StyleSheet,
@@ -12,6 +11,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { LockedOverlay } from '../components/premium/LockedOverlay';
@@ -40,7 +41,7 @@ export function BlogScreen({
     return (
       <View style={styles.BlogScreenFacetChassis}>
         <ImageBackground
-          source={require('../assets/into-frozen-explorer-background.png')}
+          source={require('../assets/froz-explrr-background.png')}
           style={styles.BlogScreenBackground}
           resizeMode="cover"
         >
@@ -66,17 +67,17 @@ export function BlogScreen({
                 ]}
               >
                 <View style={styles.BlogScreenArticleHeaderLeftLintel}>
-                  <Pressable
+                  <AnimatedPressable
                     onPress={() => setSelectedId(null)}
                     style={styles.BlogScreenBackPortico}
                     hitSlop={12}
                   >
                     <Image
-                      source={require('../assets/into-frozen-explorer-backarrow.png')}
+                      source={require('../assets/froz-explrr-backarrow.png')}
                       style={styles.BlogScreenBackArrowSigil}
                       resizeMode="contain"
                     />
-                  </Pressable>
+                  </AnimatedPressable>
                   <Text style={styles.BlogScreenTitleFiligree}>
                     Winter Blog
                   </Text>
@@ -85,7 +86,7 @@ export function BlogScreen({
               </View>
             </View>
 
-            <View style={styles.BlogScreenArticleChassis}>
+            <FadeSlideIn key={article.id} style={styles.BlogScreenArticleChassis}>
               <Text style={styles.BlogScreenArticleTitleFiligree}>
                 {article.title}
               </Text>
@@ -95,7 +96,7 @@ export function BlogScreen({
                 </Text>
               ))}
 
-              <Pressable
+              <AnimatedPressable
                 onPress={() =>
                   Share.share({
                     title: article.title,
@@ -113,14 +114,14 @@ export function BlogScreen({
                   style={styles.BlogScreenShareLintel}
                 >
                   <Image
-                    source={require('../assets/into-frozen-explorer-icon-share.png')}
+                    source={require('../assets/froz-explrr-icon-share.png')}
                     style={styles.BlogScreenIconSigil}
                     resizeMode="contain"
                   />
                   <Text style={styles.BlogScreenShareFiligree}>Share</Text>
                 </LinearGradient>
-              </Pressable>
-            </View>
+              </AnimatedPressable>
+            </FadeSlideIn>
           </ScrollView>
 
           <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
@@ -132,7 +133,7 @@ export function BlogScreen({
   return (
     <View style={styles.BlogScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.BlogScreenBackground}
         resizeMode="cover"
       >
@@ -161,7 +162,11 @@ export function BlogScreen({
 
           <View style={styles.BlogScreenListChassis}>
             {ARTICLES.map((item, index) => (
-              <View key={item.id} style={styles.BlogScreenCardChassis}>
+              <FadeSlideIn
+                key={item.id}
+                style={styles.BlogScreenCardChassis}
+                delay={Math.min(index, 6) * 60}
+              >
                 <Text style={styles.BlogScreenCardTitleFiligree}>
                   {item.title}
                 </Text>
@@ -171,20 +176,20 @@ export function BlogScreen({
                 >
                   {item.paragraphs[0]}
                 </Text>
-                <Pressable
+                <AnimatedPressable
                   onPress={() => setSelectedId(item.id)}
                   style={styles.BlogScreenReadPortico}
                 >
                   <Text style={styles.BlogScreenReadFiligree}>Read more</Text>
                   <Image
-                    source={require('../assets/into-frozen-explorer-icon-arrow.png')}
+                    source={require('../assets/froz-explrr-icon-arrow.png')}
                     style={styles.BlogScreenArrowSigil}
                     resizeMode="contain"
                   />
-                </Pressable>
+                </AnimatedPressable>
 
                 {index % 3 === 2 && <LockedOverlay onPress={onOpenPremium} />}
-              </View>
+              </FadeSlideIn>
             ))}
           </View>
         </ScrollView>

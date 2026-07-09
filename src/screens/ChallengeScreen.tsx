@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   Share,
   StyleSheet,
@@ -12,6 +11,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { QUIZ_QUESTIONS } from '../data/quiz';
 
@@ -77,7 +78,7 @@ export function ChallengeScreen({
     return (
       <View style={styles.ChallengeScreenFacetChassis}>
         <ImageBackground
-          source={require('../assets/into-frozen-explorer-background.png')}
+          source={require('../assets/froz-explrr-background.png')}
           style={styles.ChallengeScreenBackground}
           resizeMode="cover"
         >
@@ -95,14 +96,17 @@ export function ChallengeScreen({
               Snow Challenge
             </Text>
 
-            <View style={styles.ChallengeScreenResultScoreChassis}>
+            <FadeSlideIn style={styles.ChallengeScreenResultScoreChassis}>
               <Text style={styles.ChallengeScreenResultEmojiSigil}>❄️</Text>
               <Text style={styles.ChallengeScreenResultScoreFiligree}>
                 {score} / {QUIZ_QUESTIONS.length}
               </Text>
-            </View>
+            </FadeSlideIn>
 
-            <View style={styles.ChallengeScreenResultCardChassis}>
+            <FadeSlideIn
+              style={styles.ChallengeScreenResultCardChassis}
+              delay={80}
+            >
               <Text style={styles.ChallengeScreenResultTitleFiligree}>
                 Challenge Complete!
               </Text>
@@ -127,9 +131,9 @@ export function ChallengeScreen({
                   </Text>
                 </View>
               </View>
-            </View>
+            </FadeSlideIn>
 
-            <Pressable
+            <AnimatedPressable
               onPress={handleRetry}
               style={styles.ChallengeScreenRetryPortico}
             >
@@ -148,9 +152,9 @@ export function ChallengeScreen({
                   </Text>
                 </LinearGradient>
               )}
-            </Pressable>
+            </AnimatedPressable>
 
-            <Pressable
+            <AnimatedPressable
               onPress={() =>
                 Share.share({
                   message: `❄️ Snow Challenge: I scored ${score}/${QUIZ_QUESTIONS.length}! Try to beat my score!`,
@@ -165,7 +169,7 @@ export function ChallengeScreen({
                 style={styles.ChallengeScreenResultShareLintel}
               >
                 <Image
-                  source={require('../assets/into-frozen-explorer-icon-share.png')}
+                  source={require('../assets/froz-explrr-icon-share.png')}
                   style={styles.ChallengeScreenIconSigil}
                   resizeMode="contain"
                 />
@@ -173,7 +177,7 @@ export function ChallengeScreen({
                   Share
                 </Text>
               </LinearGradient>
-            </Pressable>
+            </AnimatedPressable>
           </ScrollView>
 
           <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
@@ -185,7 +189,7 @@ export function ChallengeScreen({
   return (
     <View style={styles.ChallengeScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.ChallengeScreenBackground}
         resizeMode="cover"
       >
@@ -211,69 +215,71 @@ export function ChallengeScreen({
             </View>
           </View>
 
-          {/* Question card */}
-          <View style={styles.ChallengeScreenQuestionChassis}>
-            <LinearGradient
-              colors={['rgba(109,206,255,0.88)', 'rgba(255,153,209,0.88)']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              style={styles.ChallengeScreenBadgeSigil}
-            >
-              <Text style={styles.ChallengeScreenBadgeFiligree}>
-                {questionIndex + 1}
-              </Text>
-            </LinearGradient>
-            <Text style={styles.ChallengeScreenQuestionLabelFiligree}>
-              Question
-            </Text>
-            <Text style={styles.ChallengeScreenQuestionTextFiligree}>
-              {question.text}
-            </Text>
-          </View>
-
-          {/* Answer options */}
-          {question.options.map((option, index) => (
-            <Pressable
-              key={index}
-              onPress={() => handleSelect(index)}
-              style={getOptionStyle(index)}
-            >
+          <FadeSlideIn key={questionIndex} style={styles.ChallengeScreenQuestionGroupLintel}>
+            {/* Question card */}
+            <View style={styles.ChallengeScreenQuestionChassis}>
               <LinearGradient
                 colors={['rgba(109,206,255,0.88)', 'rgba(255,153,209,0.88)']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
-                style={styles.ChallengeScreenOptionBadgeSigil}
+                style={styles.ChallengeScreenBadgeSigil}
               >
                 <Text style={styles.ChallengeScreenBadgeFiligree}>
-                  {LETTER[index]}
+                  {questionIndex + 1}
                 </Text>
               </LinearGradient>
-              <Text style={styles.ChallengeScreenOptionTextFiligree}>
-                {option}
+              <Text style={styles.ChallengeScreenQuestionLabelFiligree}>
+                Question
               </Text>
-            </Pressable>
-          ))}
+              <Text style={styles.ChallengeScreenQuestionTextFiligree}>
+                {question.text}
+              </Text>
+            </View>
 
-          {/* Next / See Result button */}
-          {isAnswered && (
-            <Pressable onPress={handleNext}>
-              {({ pressed }) => (
+            {/* Answer options */}
+            {question.options.map((option, index) => (
+              <AnimatedPressable
+                key={index}
+                onPress={() => handleSelect(index)}
+                style={getOptionStyle(index)}
+              >
                 <LinearGradient
-                  colors={[colors.btnGradientStart, colors.btnGradientEnd]}
+                  colors={['rgba(109,206,255,0.88)', 'rgba(255,153,209,0.88)']}
                   start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  style={[
-                    styles.ChallengeScreenNextLintel,
-                    pressed && styles.ChallengeScreenBtnPressedDim,
-                  ]}
+                  end={{ x: 0, y: 1 }}
+                  style={styles.ChallengeScreenOptionBadgeSigil}
                 >
-                  <Text style={styles.ChallengeScreenNextFiligree}>
-                    {isLast ? 'See Result' : 'Next Question'}
+                  <Text style={styles.ChallengeScreenBadgeFiligree}>
+                    {LETTER[index]}
                   </Text>
                 </LinearGradient>
-              )}
-            </Pressable>
-          )}
+                <Text style={styles.ChallengeScreenOptionTextFiligree}>
+                  {option}
+                </Text>
+              </AnimatedPressable>
+            ))}
+
+            {/* Next / See Result button */}
+            {isAnswered && (
+              <AnimatedPressable onPress={handleNext}>
+                {({ pressed }) => (
+                  <LinearGradient
+                    colors={[colors.btnGradientStart, colors.btnGradientEnd]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={[
+                      styles.ChallengeScreenNextLintel,
+                      pressed && styles.ChallengeScreenBtnPressedDim,
+                    ]}
+                  >
+                    <Text style={styles.ChallengeScreenNextFiligree}>
+                      {isLast ? 'See Result' : 'Next Question'}
+                    </Text>
+                  </LinearGradient>
+                )}
+              </AnimatedPressable>
+            )}
+          </FadeSlideIn>
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />
@@ -294,6 +300,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     gap: 15,
     paddingHorizontal: 16,
+  },
+  ChallengeScreenQuestionGroupLintel: {
+    gap: 15,
   },
   ChallengeScreenHeaderLintel: {
     alignItems: 'center',

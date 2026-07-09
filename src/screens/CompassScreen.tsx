@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,6 +10,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { MOODS } from '../data/compass';
@@ -35,7 +36,7 @@ export function CompassScreen({
   return (
     <View style={styles.CompassScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.CompassScreenBackground}
         resizeMode="cover"
       >
@@ -71,7 +72,7 @@ export function CompassScreen({
           <View style={styles.CompassScreenContentChassis}>
             {/* Compass image */}
             <Image
-              source={require('../assets/into-frozen-explorer-onboardimg5.png')}
+              source={require('../assets/froz-explrr-onboardimg5.png')}
               style={styles.CompassScreenCompassSigil}
               resizeMode="contain"
             />
@@ -84,36 +85,41 @@ export function CompassScreen({
             </View>
 
             {/* Mood cards */}
-            {MOODS.map(mood => (
-              <Pressable
+            {MOODS.map((mood, index) => (
+              <FadeSlideIn
                 key={mood.id}
-                onPress={() => onOpenPlace(mood.placeId)}
-                style={styles.CompassScreenMoodChassis}
+                style={styles.CompassScreenMoodLintel}
+                delay={index * 60}
               >
-                {/* Arrow badge */}
-                <LinearGradient
-                  colors={['rgba(109,206,255,0.88)', 'rgba(255,153,209,0.88)']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 0, y: 1 }}
-                  style={styles.CompassScreenArrowSigil}
+                <AnimatedPressable
+                  onPress={() => onOpenPlace(mood.placeId)}
+                  style={styles.CompassScreenMoodChassis}
                 >
-                  <Image
-                    source={require('../assets/into-frozen-explorer-icon-arrow.png')}
-                    style={styles.CompassScreenArrowIconSigil}
-                    resizeMode="contain"
-                  />
-                </LinearGradient>
+                  {/* Arrow badge */}
+                  <LinearGradient
+                    colors={['rgba(109,206,255,0.88)', 'rgba(255,153,209,0.88)']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 1 }}
+                    style={styles.CompassScreenArrowSigil}
+                  >
+                    <Image
+                      source={require('../assets/froz-explrr-icon-arrow.png')}
+                      style={styles.CompassScreenArrowIconSigil}
+                      resizeMode="contain"
+                    />
+                  </LinearGradient>
 
-                <Text style={styles.CompassScreenMoodTitleFiligree}>
-                  {mood.emoji} {mood.title}
-                </Text>
-                <Text
-                  style={styles.CompassScreenMoodDescFiligree}
-                  numberOfLines={3}
-                >
-                  {mood.description}
-                </Text>
-              </Pressable>
+                  <Text style={styles.CompassScreenMoodTitleFiligree}>
+                    {mood.emoji} {mood.title}
+                  </Text>
+                  <Text
+                    style={styles.CompassScreenMoodDescFiligree}
+                    numberOfLines={3}
+                  >
+                    {mood.description}
+                  </Text>
+                </AnimatedPressable>
+              </FadeSlideIn>
             ))}
           </View>
         </ScrollView>
@@ -186,6 +192,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  CompassScreenMoodLintel: {
+    alignSelf: 'stretch',
+  },
   CompassScreenMoodChassis: {
     alignSelf: 'stretch',
     backgroundColor: colors.card,

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   Share,
   StyleSheet,
@@ -12,6 +11,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 
@@ -39,7 +40,7 @@ export function FactsScreen({
   return (
     <View style={styles.FactsScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.FactsScreenBackground}
         resizeMode="cover"
       >
@@ -72,10 +73,14 @@ export function FactsScreen({
           </View>
 
           <View style={styles.FactsScreenListChassis}>
-            {FACTS.map(item => {
+            {FACTS.map((item, index) => {
               const isSaved = savedIds.has(item.id);
               return (
-                <View key={item.id} style={styles.FactsScreenCardChassis}>
+                <FadeSlideIn
+                  key={item.id}
+                  style={styles.FactsScreenCardChassis}
+                  delay={Math.min(index, 6) * 60}
+                >
                   <Text style={styles.FactsScreenLabelFiligree}>
                     This is interesting:
                   </Text>
@@ -84,7 +89,7 @@ export function FactsScreen({
                   </Text>
 
                   <View style={styles.FactsScreenActionsLintel}>
-                    <Pressable
+                    <AnimatedPressable
                       onPress={() => Share.share({ message: item.text })}
                       style={styles.FactsScreenSharePortico}
                     >
@@ -95,15 +100,15 @@ export function FactsScreen({
                         style={styles.FactsScreenBtnLintel}
                       >
                         <Image
-                          source={require('../assets/into-frozen-explorer-icon-share.png')}
+                          source={require('../assets/froz-explrr-icon-share.png')}
                           style={styles.FactsScreenIconSigil}
                           resizeMode="contain"
                         />
                         <Text style={styles.FactsScreenBtnFiligree}>Share</Text>
                       </LinearGradient>
-                    </Pressable>
+                    </AnimatedPressable>
 
-                    <Pressable
+                    <AnimatedPressable
                       onPress={() => onToggleSave(item.id)}
                       style={styles.FactsScreenSavePortico}
                     >
@@ -131,9 +136,9 @@ export function FactsScreen({
                           </Text>
                         </View>
                       )}
-                    </Pressable>
+                    </AnimatedPressable>
                   </View>
-                </View>
+                </FadeSlideIn>
               );
             })}
           </View>

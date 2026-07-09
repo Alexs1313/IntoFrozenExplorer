@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   Share,
   StyleSheet,
@@ -13,6 +12,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { PLACES } from '../data/places';
@@ -53,7 +54,7 @@ export function PlaceDetailScreen({
   return (
     <View style={styles.PlaceDetailScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.PlaceDetailScreenBackground}
         resizeMode="cover"
       >
@@ -76,23 +77,23 @@ export function PlaceDetailScreen({
             ]}
           >
             <View style={styles.PlaceDetailScreenHeaderLeftLintel}>
-              <Pressable
+              <AnimatedPressable
                 onPress={onBack}
                 style={styles.PlaceDetailScreenBackPortico}
                 hitSlop={12}
               >
                 <Image
-                  source={require('../assets/into-frozen-explorer-backarrow.png')}
+                  source={require('../assets/froz-explrr-backarrow.png')}
                   style={styles.PlaceDetailScreenBackArrowSigil}
                   resizeMode="contain"
                 />
-              </Pressable>
+              </AnimatedPressable>
               <Text style={styles.PlaceDetailScreenTitleFiligree}>Places</Text>
             </View>
             <PremiumBadge onPress={onOpenPremium} />
           </View>
           {/* Card */}
-          <View style={styles.PlaceDetailScreenCardChassis}>
+          <FadeSlideIn style={styles.PlaceDetailScreenCardChassis}>
             {/* Place image */}
             <Image
               source={place.image}
@@ -101,7 +102,7 @@ export function PlaceDetailScreen({
             />
 
             {/* Map toggle button */}
-            <Pressable
+            <AnimatedPressable
               onPress={() => setShowMap(prev => !prev)}
               style={styles.PlaceDetailScreenMapTogglePortico}
             >
@@ -131,7 +132,7 @@ export function PlaceDetailScreen({
                   </Text>
                 </LinearGradient>
               )}
-            </Pressable>
+            </AnimatedPressable>
 
             {/* Info */}
             <Text style={styles.PlaceDetailScreenNameFiligree}>
@@ -169,7 +170,7 @@ export function PlaceDetailScreen({
                     title={place.name}
                   >
                     <Image
-                      source={require('../assets/into-frozen-explorer-pin.png')}
+                      source={require('../assets/froz-explrr-pin.png')}
                       style={styles.PlaceDetailScreenPinSigil}
                       resizeMode="contain"
                     />
@@ -184,7 +185,7 @@ export function PlaceDetailScreen({
 
                 {/* Action buttons */}
                 <View style={styles.PlaceDetailScreenActionsLintel}>
-                  <Pressable
+                  <AnimatedPressable
                     onPress={handleShare}
                     style={styles.PlaceDetailScreenSharePortico}
                   >
@@ -195,7 +196,7 @@ export function PlaceDetailScreen({
                       style={styles.PlaceDetailScreenBtnLintel}
                     >
                       <Image
-                        source={require('../assets/into-frozen-explorer-icon-share.png')}
+                        source={require('../assets/froz-explrr-icon-share.png')}
                         style={styles.PlaceDetailScreenIconSigil}
                         resizeMode="contain"
                       />
@@ -203,9 +204,9 @@ export function PlaceDetailScreen({
                         Share
                       </Text>
                     </LinearGradient>
-                  </Pressable>
+                  </AnimatedPressable>
 
-                  <Pressable
+                  <AnimatedPressable
                     onPress={onToggleSave}
                     style={styles.PlaceDetailScreenSavePortico}
                   >
@@ -233,11 +234,11 @@ export function PlaceDetailScreen({
                         </Text>
                       </View>
                     )}
-                  </Pressable>
+                  </AnimatedPressable>
                 </View>
               </>
             )}
-          </View>
+          </FadeSlideIn>
         </ScrollView>
 
         <TabBar activeIndex={activeTab} onTabPress={onTabPress} />

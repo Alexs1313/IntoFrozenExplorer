@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { Image, StyleSheet } from 'react-native';
+import { AnimatedPressable } from '../animated/AnimatedPressable';
 import { colors } from '../../constants/theme';
 
 type PremiumBadgeProps = {
@@ -9,13 +9,13 @@ type PremiumBadgeProps = {
 
 export function PremiumBadge({ onPress }: PremiumBadgeProps) {
   return (
-    <Pressable onPress={onPress} hitSlop={8}>
+    <AnimatedPressable onPress={onPress} hitSlop={8} activeScale={0.88}>
       <Image
         source={require('../../assets/premiumicon.png')}
         style={styles.PremiumBadgeIconSigil}
         resizeMode="contain"
       />
-    </Pressable>
+    </AnimatedPressable>
   );
 }
 

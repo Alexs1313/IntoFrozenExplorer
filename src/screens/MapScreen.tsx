@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,6 +11,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { TabBar, TAB_BAR_TOTAL_HEIGHT } from '../components/nav/TabBar';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { PLACES } from '../data/places';
@@ -45,7 +46,7 @@ export function MapScreen({
   return (
     <View style={styles.MapScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/into-frozen-explorer-background.png')}
+        source={require('../assets/froz-explrr-background.png')}
         style={styles.MapScreenBackground}
         resizeMode="cover"
       >
@@ -65,17 +66,17 @@ export function MapScreen({
           >
             <View style={styles.MapScreenHeaderLeftLintel}>
               {selectedPlace ? (
-                <Pressable
+                <AnimatedPressable
                   onPress={handleBack}
                   style={styles.MapScreenBackPortico}
                   hitSlop={12}
                 >
                   <Image
-                    source={require('../assets/into-frozen-explorer-backarrow.png')}
+                    source={require('../assets/froz-explrr-backarrow.png')}
                     style={styles.MapScreenBackArrowSigil}
                     resizeMode="contain"
                   />
-                </Pressable>
+                </AnimatedPressable>
               ) : null}
               <Text style={styles.MapScreenTitleFiligree}>Map</Text>
             </View>
@@ -101,7 +102,7 @@ export function MapScreen({
                   onPress={() => handleMarkerPress(place)}
                 >
                   <Image
-                    source={require('../assets/into-frozen-explorer-pin.png')}
+                    source={require('../assets/froz-explrr-pin.png')}
                     style={styles.MapScreenPinSigil}
                     resizeMode="contain"
                   />
@@ -111,7 +112,12 @@ export function MapScreen({
 
             {/* Place popup card (pin selected) */}
             {selectedPlace ? (
-              <View style={styles.MapScreenPlaceCardChassis}>
+              <FadeSlideIn
+                key={selectedPlace.id}
+                style={styles.MapScreenPlaceCardChassis}
+                distance={12}
+                duration={280}
+              >
                 <Image
                   source={selectedPlace.image}
                   style={styles.MapScreenPlaceImageSigil}
@@ -123,18 +129,18 @@ export function MapScreen({
                 <Text style={styles.MapScreenPlaceCoordsFiligree}>
                   Coordinates: {selectedPlace.coordinates}
                 </Text>
-                <Pressable
+                <AnimatedPressable
                   onPress={() => onOpenPlace(selectedPlace.id)}
                   style={styles.MapScreenOpenPortico}
                 >
                   <Text style={styles.MapScreenOpenFiligree}>Open more</Text>
                   <Image
-                    source={require('../assets/into-frozen-explorer-icon-arrow.png')}
+                    source={require('../assets/froz-explrr-icon-arrow.png')}
                     style={styles.MapScreenArrowSigil}
                     resizeMode="contain"
                   />
-                </Pressable>
-              </View>
+                </AnimatedPressable>
+              </FadeSlideIn>
             ) : null}
           </View>
           <TabBar activeIndex={activeTab} onTabPress={onTabPress} />

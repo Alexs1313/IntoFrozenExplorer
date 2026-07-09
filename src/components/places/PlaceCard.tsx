@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { AnimatedPressable } from '../animated/AnimatedPressable';
 import { colors, fonts, radius } from '../../constants/theme';
 import { Place } from '../../types/places';
 import { LockedOverlay } from '../premium/LockedOverlay';
@@ -28,14 +29,14 @@ export function PlaceCard({
       <Text style={styles.PlaceCardCoordsFiligree}>
         Coordinates: {place.coordinates}
       </Text>
-      <Pressable onPress={onPress} style={styles.PlaceCardOpenPortico}>
+      <AnimatedPressable onPress={onPress} style={styles.PlaceCardOpenPortico}>
         <Text style={styles.PlaceCardOpenFiligree}>Open more</Text>
         <Image
-          source={require('../../assets/into-frozen-explorer-icon-arrow.png')}
+          source={require('../../assets/froz-explrr-icon-arrow.png')}
           style={styles.PlaceCardArrowSigil}
           resizeMode="contain"
         />
-      </Pressable>
+      </AnimatedPressable>
 
       {locked && onOpenPremium && <LockedOverlay onPress={onOpenPremium} />}
     </View>

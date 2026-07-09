@@ -1,6 +1,7 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, ViewStyle} from 'react-native';
+import {StyleSheet, Text, ViewStyle} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {AnimatedPressable} from '../animated/AnimatedPressable';
 import {colors, fonts, layout, radius} from '../../constants/theme';
 
 type PrimaryButtonProps = {
@@ -17,13 +18,10 @@ export function PrimaryButton({
   style,
 }: PrimaryButtonProps) {
   return (
-    <Pressable
+    <AnimatedPressable
       onPress={onPress}
-      style={[
-        styles.PrimaryButtonPortico,
-        fullWidth && styles.PrimaryButtonPorticoFull,
-        style,
-      ]}>
+      scaleStyle={[fullWidth && styles.PrimaryButtonPorticoFull, style]}
+      style={styles.PrimaryButtonPortico}>
       {({pressed}) => (
         <LinearGradient
           colors={[colors.btnGradientStart, colors.btnGradientEnd]}
@@ -36,7 +34,7 @@ export function PrimaryButton({
           <Text style={styles.PrimaryButtonFiligree}>{label}</Text>
         </LinearGradient>
       )}
-    </Pressable>
+    </AnimatedPressable>
   );
 }
 

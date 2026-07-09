@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,6 +9,8 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AnimatedPressable } from '../components/animated/AnimatedPressable';
+import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { PrimaryButton } from '../components/buttons/PrimaryButton';
 import { PaginationDots } from '../components/nav/PaginationDots';
 import { ONBOARDING_STEPS } from '../data/onboarding';
@@ -47,7 +48,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
           contentContainerStyle={styles.OnboardingScreenScrollLintel}
           showsVerticalScrollIndicator={false}
         >
-          <Pressable
+          <AnimatedPressable
             onPress={onComplete}
             style={[
               styles.OnboardingScreenTopSkip,
@@ -56,29 +57,31 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
             hitSlop={12}
           >
             <Text style={styles.OnboardingScreenTopSkipFiligree}>SKIP</Text>
-          </Pressable>
+          </AnimatedPressable>
           <View
             style={[
               styles.OnboardingScreenContent,
               { paddingBottom: insets.bottom + adaptive.verticalScale(28) },
             ]}
           >
-            <View style={styles.OnboardingScreenHeroEnclave}>
-              <Image
-                source={step.overlay}
-                style={styles.OnboardingScreenOverlaySigil}
-                resizeMode="contain"
-              />
-            </View>
+            <FadeSlideIn key={stepIndex} style={styles.OnboardingScreenStepLintel}>
+              <View style={styles.OnboardingScreenHeroEnclave}>
+                <Image
+                  source={step.overlay}
+                  style={styles.OnboardingScreenOverlaySigil}
+                  resizeMode="contain"
+                />
+              </View>
 
-            <View style={styles.OnboardingScreenCardChassis}>
-              <Text style={styles.OnboardingScreenTitleFiligree}>
-                {step.title}
-              </Text>
-              <Text style={styles.OnboardingScreenDescFiligree}>
-                {step.description}
-              </Text>
-            </View>
+              <View style={styles.OnboardingScreenCardChassis}>
+                <Text style={styles.OnboardingScreenTitleFiligree}>
+                  {step.title}
+                </Text>
+                <Text style={styles.OnboardingScreenDescFiligree}>
+                  {step.description}
+                </Text>
+              </View>
+            </FadeSlideIn>
 
             <View style={styles.OnboardingScreenFooter}>
               <PaginationDots
@@ -125,6 +128,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingTop: 72,
+  },
+  OnboardingScreenStepLintel: {
+    flex: 1,
+    width: '100%',
   },
   OnboardingScreenHeroEnclave: {
     alignItems: 'center',

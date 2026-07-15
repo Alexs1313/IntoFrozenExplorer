@@ -43,14 +43,6 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     background: require('../assets/froz-explrr-onboard-bg.png'),
-    overlay: require('../assets/froz-explrr-onboardimg6.png'),
-    title: 'Unlock Winter Premium',
-    description:
-      'Access exclusive winter locations and additional blog articles. Explore more destinations, discover fresh travel inspiration, and enjoy the complete winter experience.',
-    buttonLabel: 'Next',
-  },
-  {
-    background: require('../assets/froz-explrr-onboard-bg.png'),
     overlay: require('../assets/froz-explrr-onboardimg5.png'),
     title: 'Let your mood choose\nthe path',
     description:

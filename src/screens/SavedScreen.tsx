@@ -56,7 +56,7 @@ export function SavedScreen({
   return (
     <View style={styles.SavedScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.SavedScreenBackground}
         resizeMode="cover"
       >
@@ -190,7 +190,7 @@ export function SavedScreen({
                   </AnimatedPressable>
 
                   <Image
-                    source={require('../assets/froz-explrr-onboardimg4.png')}
+                    source={require('../assets/into-explorer-onboardimg4.png')}
                     style={styles.SavedScreenEmptyImageSigil}
                     resizeMode="contain"
                   />
@@ -223,7 +223,7 @@ export function SavedScreen({
                           style={styles.SavedScreenBtnLintel}
                         >
                           <Image
-                            source={require('../assets/froz-explrr-icon-share.png')}
+                            source={require('../assets/into-explorer-icon-share.png')}
                             style={styles.SavedScreenIconSigil}
                             resizeMode="contain"
                           />

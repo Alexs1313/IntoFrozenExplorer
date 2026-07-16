@@ -5,13 +5,13 @@ import {AnimatedPressable} from '../animated/AnimatedPressable';
 import {colors, radius} from '../../constants/theme';
 
 const TAB_ITEMS = [
-  {icon: require('../../assets/froz-explrr-tab-icon-places.png'), label: 'Places'},
-  {icon: require('../../assets/froz-explrr-tab-icon-map.png'), label: 'Map'},
-  {icon: require('../../assets/froz-explrr-tab-icon-challenges.png'), label: 'Challenges'},
-  {icon: require('../../assets/froz-explrr-tab-icon-blog.png'), label: 'Blog'},
-  {icon: require('../../assets/froz-explrr-tab-icon-quiz.png'), label: 'Quiz'},
-  {icon: require('../../assets/froz-explrr-tab-icon-saved.png'), label: 'Saved'},
-  {icon: require('../../assets/froz-explrr-tab-icon-compass.png'), label: 'Compass'},
+  {icon: require('../../assets/into-explorer-tab-icon-places.png'), label: 'Places'},
+  {icon: require('../../assets/into-explorer-tab-icon-map.png'), label: 'Map'},
+  {icon: require('../../assets/into-explorer-tab-icon-challenges.png'), label: 'Challenges'},
+  {icon: require('../../assets/into-explorer-tab-icon-blog.png'), label: 'Blog'},
+  {icon: require('../../assets/into-explorer-tab-icon-quiz.png'), label: 'Quiz'},
+  {icon: require('../../assets/into-explorer-tab-icon-saved.png'), label: 'Saved'},
+  {icon: require('../../assets/into-explorer-tab-icon-compass.png'), label: 'Compass'},
 ];
 
 type TabBarProps = {

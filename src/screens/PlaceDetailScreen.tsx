@@ -51,7 +51,7 @@ export function PlaceDetailScreen({
   return (
     <View style={styles.PlaceDetailScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.PlaceDetailScreenBackground}
         resizeMode="cover"
       >
@@ -80,7 +80,7 @@ export function PlaceDetailScreen({
                 hitSlop={12}
               >
                 <Image
-                  source={require('../assets/froz-explrr-backarrow.png')}
+                  source={require('../assets/into-explorer-backarrow.png')}
                   style={styles.PlaceDetailScreenBackArrowSigil}
                   resizeMode="contain"
                 />
@@ -166,7 +166,7 @@ export function PlaceDetailScreen({
                     title={place.name}
                   >
                     <Image
-                      source={require('../assets/froz-explrr-pin.png')}
+                      source={require('../assets/into-explorer-pin.png')}
                       style={styles.PlaceDetailScreenPinSigil}
                       resizeMode="contain"
                     />
@@ -192,7 +192,7 @@ export function PlaceDetailScreen({
                       style={styles.PlaceDetailScreenBtnLintel}
                     >
                       <Image
-                        source={require('../assets/froz-explrr-icon-share.png')}
+                        source={require('../assets/into-explorer-icon-share.png')}
                         style={styles.PlaceDetailScreenIconSigil}
                         resizeMode="contain"
                       />

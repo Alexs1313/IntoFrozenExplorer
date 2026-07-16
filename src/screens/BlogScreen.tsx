@@ -34,7 +34,7 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
     return (
       <View style={styles.BlogScreenFacetChassis}>
         <ImageBackground
-          source={require('../assets/froz-explrr-background.png')}
+          source={require('../assets/into-explorer-background.png')}
           style={styles.BlogScreenBackground}
           resizeMode="cover"
         >
@@ -66,7 +66,7 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
                     hitSlop={12}
                   >
                     <Image
-                      source={require('../assets/froz-explrr-backarrow.png')}
+                      source={require('../assets/into-explorer-backarrow.png')}
                       style={styles.BlogScreenBackArrowSigil}
                       resizeMode="contain"
                     />
@@ -106,7 +106,7 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
                   style={styles.BlogScreenShareLintel}
                 >
                   <Image
-                    source={require('../assets/froz-explrr-icon-share.png')}
+                    source={require('../assets/into-explorer-icon-share.png')}
                     style={styles.BlogScreenIconSigil}
                     resizeMode="contain"
                   />
@@ -125,7 +125,7 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
   return (
     <View style={styles.BlogScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.BlogScreenBackground}
         resizeMode="cover"
       >
@@ -171,7 +171,7 @@ export function BlogScreen({ activeTab, onTabPress }: BlogScreenProps) {
                 >
                   <Text style={styles.BlogScreenReadFiligree}>Read more</Text>
                   <Image
-                    source={require('../assets/froz-explrr-icon-arrow.png')}
+                    source={require('../assets/into-explorer-icon-arrow.png')}
                     style={styles.BlogScreenArrowSigil}
                     resizeMode="contain"
                   />

@@ -24,7 +24,7 @@ export function PlaceCard({ place, onPress }: PlaceCardProps) {
       <AnimatedPressable onPress={onPress} style={styles.PlaceCardOpenPortico}>
         <Text style={styles.PlaceCardOpenFiligree}>Open more</Text>
         <Image
-          source={require('../../assets/froz-explrr-icon-arrow.png')}
+          source={require('../../assets/into-explorer-icon-arrow.png')}
           style={styles.PlaceCardArrowSigil}
           resizeMode="contain"
         />

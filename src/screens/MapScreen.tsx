@@ -43,7 +43,7 @@ export function MapScreen({
   return (
     <View style={styles.MapScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.MapScreenBackground}
         resizeMode="cover"
       >
@@ -69,7 +69,7 @@ export function MapScreen({
                   hitSlop={12}
                 >
                   <Image
-                    source={require('../assets/froz-explrr-backarrow.png')}
+                    source={require('../assets/into-explorer-backarrow.png')}
                     style={styles.MapScreenBackArrowSigil}
                     resizeMode="contain"
                   />
@@ -98,7 +98,7 @@ export function MapScreen({
                   onPress={() => handleMarkerPress(place)}
                 >
                   <Image
-                    source={require('../assets/froz-explrr-pin.png')}
+                    source={require('../assets/into-explorer-pin.png')}
                     style={styles.MapScreenPinSigil}
                     resizeMode="contain"
                   />
@@ -131,7 +131,7 @@ export function MapScreen({
                 >
                   <Text style={styles.MapScreenOpenFiligree}>Open more</Text>
                   <Image
-                    source={require('../assets/froz-explrr-icon-arrow.png')}
+                    source={require('../assets/into-explorer-icon-arrow.png')}
                     style={styles.MapScreenArrowSigil}
                     resizeMode="contain"
                   />

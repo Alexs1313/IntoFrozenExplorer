@@ -313,7 +313,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sdfkmnkf.intofrozexplore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jsdfjkk.djsdfjkneeiwl;
 				PRODUCT_NAME = IntoFrozenExplorer;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -345,7 +345,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sdfkmnkf.intofrozexplore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jsdfjkk.djsdfjkneeiwl;
 				PRODUCT_NAME = IntoFrozenExplorer;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

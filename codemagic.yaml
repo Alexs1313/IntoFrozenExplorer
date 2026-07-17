@@ -9,9 +9,9 @@ workflows:
       vars:
         XCODE_WORKSPACE: 'IntoFrozenExplorer.xcworkspace' # <----
         XCODE_SCHEME: 'IntoFrozenExplorer' # <----
-        BUNDLE_ID: 'com.sdfkmnkf.intofrozexplore' # <----
-        APP_STORE_APP_ID: 6789219417 # <----
-        APP_STORE_CONNECT_KEY_ID: 'Z76D4A98U4' # <----
+        BUNDLE_ID: 'com.jsdfjkk.djsdfjkneeiwl' # <----
+        APP_STORE_APP_ID: 6791513051 # <----
+        APP_STORE_CONNECT_KEY_ID: 'T64MTSRR8Q' # <----
         APP_STORE_CONNECT_ISSUER_ID: '6224e46f-9de0-4cea-94af-2a400b4525e2' # <----
         node: latest
         xcode: latest

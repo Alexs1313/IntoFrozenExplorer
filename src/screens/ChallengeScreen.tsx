@@ -78,7 +78,7 @@ export function ChallengeScreen({
     return (
       <View style={styles.ChallengeScreenFacetChassis}>
         <ImageBackground
-          source={require('../assets/froz-explrr-background.png')}
+          source={require('../assets/into-explorer-background.png')}
           style={styles.ChallengeScreenBackground}
           resizeMode="cover"
         >
@@ -169,7 +169,7 @@ export function ChallengeScreen({
                 style={styles.ChallengeScreenResultShareLintel}
               >
                 <Image
-                  source={require('../assets/froz-explrr-icon-share.png')}
+                  source={require('../assets/into-explorer-icon-share.png')}
                   style={styles.ChallengeScreenIconSigil}
                   resizeMode="contain"
                 />
@@ -189,7 +189,7 @@ export function ChallengeScreen({
   return (
     <View style={styles.ChallengeScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.ChallengeScreenBackground}
         resizeMode="cover"
       >

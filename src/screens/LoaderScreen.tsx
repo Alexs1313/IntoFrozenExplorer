@@ -48,12 +48,12 @@ export function LoaderScreen({ onDone }: Props) {
 
   return (
     <ImageBackground
-      source={require('../assets/froz-explrr-onboard-bg.png')}
+      source={require('../assets/into-explorer-onboard-bg.png')}
       style={styles.LoaderScreenChassis}
       resizeMode="cover"
     >
       <Animated.Image
-        source={require('../assets/froz-explrr-icon.png')}
+        source={require('../assets/into-explorer-icon.png')}
         style={[
           styles.LoaderScreenIconSigil,
           { transform: [{ scale: scaleValue }] },

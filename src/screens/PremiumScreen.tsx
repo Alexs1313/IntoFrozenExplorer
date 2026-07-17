@@ -48,7 +48,7 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
   return (
     <View style={styles.PremiumScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.PremiumScreenBackground}
         resizeMode="cover"
       >
@@ -76,7 +76,7 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
               hitSlop={12}
             >
               <Image
-                source={require('../assets/froz-explrr-backarrow.png')}
+                source={require('../assets/into-explorer-backarrow.png')}
                 style={styles.PremiumScreenBackArrowSigil}
                 resizeMode="contain"
               />
@@ -109,16 +109,6 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
                 </Text>
                 <View style={styles.PremiumScreenPriceRowLintel}>
                   <Text style={styles.PremiumScreenPriceFiligree}>$1.99</Text>
-                  <Text
-                    style={{
-                      bottom: 10,
-                      fontSize: 15,
-                      fontWeight: '700',
-                      color: '#fff',
-                    }}
-                  >
-                    / m
-                  </Text>
                 </View>
               </View>
             </LinearGradient>
@@ -168,7 +158,7 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
                   resizeMode="contain"
                 />
                 <Text style={styles.PremiumScreenBuyFiligree}>
-                  Buy Premium — $1.99 m
+                  Buy Premium — $1.99
                 </Text>
               </LinearGradient>
             </AnimatedPressable>

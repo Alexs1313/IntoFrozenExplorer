@@ -36,7 +36,7 @@ export function CompassScreen({
   return (
     <View style={styles.CompassScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.CompassScreenBackground}
         resizeMode="cover"
       >
@@ -72,7 +72,7 @@ export function CompassScreen({
           <View style={styles.CompassScreenContentChassis}>
             {/* Compass image */}
             <Image
-              source={require('../assets/froz-explrr-onboardimg5.png')}
+              source={require('../assets/into-explorer-onboardimg5.png')}
               style={styles.CompassScreenCompassSigil}
               resizeMode="contain"
             />
@@ -103,7 +103,7 @@ export function CompassScreen({
                     style={styles.CompassScreenArrowSigil}
                   >
                     <Image
-                      source={require('../assets/froz-explrr-icon-arrow.png')}
+                      source={require('../assets/into-explorer-icon-arrow.png')}
                       style={styles.CompassScreenArrowIconSigil}
                       resizeMode="contain"
                     />

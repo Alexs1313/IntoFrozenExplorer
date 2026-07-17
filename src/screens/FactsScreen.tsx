@@ -40,7 +40,7 @@ export function FactsScreen({
   return (
     <View style={styles.FactsScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.FactsScreenBackground}
         resizeMode="cover"
       >
@@ -100,7 +100,7 @@ export function FactsScreen({
                         style={styles.FactsScreenBtnLintel}
                       >
                         <Image
-                          source={require('../assets/froz-explrr-icon-share.png')}
+                          source={require('../assets/into-explorer-icon-share.png')}
                           style={styles.FactsScreenIconSigil}
                           resizeMode="contain"
                         />

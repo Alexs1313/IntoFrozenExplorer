@@ -41,7 +41,7 @@ export function PlacesScreen({
   return (
     <View style={styles.PlacesScreenFacetChassis}>
       <ImageBackground
-        source={require('../assets/froz-explrr-background.png')}
+        source={require('../assets/into-explorer-background.png')}
         style={styles.PlacesScreenBackground}
         resizeMode="cover"
       >

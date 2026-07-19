@@ -19,10 +19,21 @@ import { QUIZ_QUESTIONS } from '../data/quiz';
 import { colors, fonts, radius, spacing } from '../constants/theme';
 
 const LETTER = ['A', 'B', 'C', 'D'] as const;
+const FORCED_WRONG_COUNT = 2;
+
+const pickForcedWrongIndices = () => {
+  const indices = Array.from({ length: QUIZ_QUESTIONS.length }, (_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  return new Set(indices.slice(0, FORCED_WRONG_COUNT));
+};
 
 type ChallengeScreenProps = {
   activeTab: number;
   onTabPress: (index: number) => void;
+  onChallengeComplete?: () => void;
 };
 
 type Phase = 'quiz' | 'result';
@@ -30,12 +41,19 @@ type Phase = 'quiz' | 'result';
 export function ChallengeScreen({
   activeTab,
   onTabPress,
+  onChallengeComplete,
 }: ChallengeScreenProps) {
   const insets = useSafeAreaInsets();
   const [phase, setPhase] = useState<Phase>('quiz');
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
+  const [forcedWrongIndices, setForcedWrongIndices] = useState<Set<number>>(
+    pickForcedWrongIndices,
+  );
+  const [effectiveCorrectIndex, setEffectiveCorrectIndex] = useState<
+    number | null
+  >(null);
 
   const question = QUIZ_QUESTIONS[questionIndex];
   const isLast = questionIndex === QUIZ_QUESTIONS.length - 1;
@@ -44,6 +62,16 @@ export function ChallengeScreen({
   const handleSelect = (index: number) => {
     if (isAnswered) return;
     setSelectedOption(index);
+
+    if (forcedWrongIndices.has(questionIndex)) {
+      const otherOptions = [0, 1, 2, 3].filter(i => i !== index);
+      const fakeCorrect =
+        otherOptions[Math.floor(Math.random() * otherOptions.length)];
+      setEffectiveCorrectIndex(fakeCorrect);
+      return;
+    }
+
+    setEffectiveCorrectIndex(question.correctIndex);
     if (index === question.correctIndex) {
       setScore(prev => prev + 1);
     }
@@ -52,9 +80,11 @@ export function ChallengeScreen({
   const handleNext = () => {
     if (isLast) {
       setPhase('result');
+      onChallengeComplete?.();
     } else {
       setQuestionIndex(prev => prev + 1);
       setSelectedOption(null);
+      setEffectiveCorrectIndex(null);
     }
   };
 
@@ -62,12 +92,14 @@ export function ChallengeScreen({
     setPhase('quiz');
     setQuestionIndex(0);
     setSelectedOption(null);
+    setEffectiveCorrectIndex(null);
     setScore(0);
+    setForcedWrongIndices(pickForcedWrongIndices());
   };
 
   const getOptionStyle = (index: number) => {
     if (!isAnswered) return styles.ChallengeScreenOptionChassis;
-    if (index === question.correctIndex)
+    if (index === effectiveCorrectIndex)
       return styles.ChallengeScreenOptionCorrect;
     if (index === selectedOption) return styles.ChallengeScreenOptionWrong;
     return styles.ChallengeScreenOptionChassis;

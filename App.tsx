@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {LoaderScreen} from './src/screens/LoaderScreen';
 import {OnboardingScreen} from './src/screens/OnboardingScreen';
@@ -24,9 +25,36 @@ function App() {
   const [savedPlaceIds, setSavedPlaceIds] = useState<Set<string>>(new Set());
   const [savedFactIds, setSavedFactIds] = useState<Set<number>>(new Set());
 
+  const [completedChallenges, setCompletedChallenges] = useState(0);
+  const [isPremium, setIsPremium] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getMany(['completedChallenges', 'isPremium']).then(stored => {
+      if (stored.completedChallenges) {
+        setCompletedChallenges(Number(stored.completedChallenges));
+      }
+      if (stored.isPremium === 'true') {
+        setIsPremium(true);
+      }
+    });
+  }, []);
+
   const handleOpenPlace = (id: string) => setSelectedPlaceId(id);
   const handleClosePlace = () => setSelectedPlaceId(null);
   const handleOpenPremium = () => setPhase('premium');
+
+  const handleChallengeComplete = () => {
+    setCompletedChallenges(prev => {
+      const next = prev + 1;
+      AsyncStorage.setItem('completedChallenges', String(next));
+      return next;
+    });
+  };
+
+  const handlePremiumUnlocked = () => {
+    setIsPremium(true);
+    AsyncStorage.setItem('isPremium', 'true');
+  };
   const handleTabPress = (index: number) => {
     setActiveTab(index);
     setSelectedPlaceId(null);
@@ -61,7 +89,12 @@ function App() {
       )}
 
       {phase === 'premium' && (
-        <PremiumScreen onBack={() => setPhase('main')} />
+        <PremiumScreen
+          onBack={() => setPhase('main')}
+          completedChallenges={completedChallenges}
+          isPremium={isPremium}
+          onPurchased={handlePremiumUnlocked}
+        />
       )}
 
       {phase === 'main' && selectedPlaceId && (
@@ -113,7 +146,11 @@ function App() {
       )}
 
       {phase === 'main' && !selectedPlaceId && activeTab === 4 && (
-        <ChallengeScreen activeTab={activeTab} onTabPress={handleTabPress} />
+        <ChallengeScreen
+          activeTab={activeTab}
+          onTabPress={handleTabPress}
+          onChallengeComplete={handleChallengeComplete}
+        />
       )}
 
       {phase === 'main' && !selectedPlaceId && activeTab === 6 && (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Image,
@@ -10,14 +10,22 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useIAP } from 'react-native-iap';
 
 import { AnimatedPressable } from '../components/animated/AnimatedPressable';
 import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { colors, fonts, spacing } from '../constants/theme';
+import {
+  PREMIUM_PRODUCT_ID,
+  REQUIRED_CHALLENGES_FOR_PURCHASE,
+} from '../services/iap';
 
 type PremiumScreenProps = {
   onBack: () => void;
+  completedChallenges: number;
+  isPremium: boolean;
+  onPurchased: () => void;
 };
 
 const FEATURES = [
@@ -35,14 +43,85 @@ const FEATURES = [
   },
 ];
 
-export function PremiumScreen({ onBack }: PremiumScreenProps) {
+export function PremiumScreen({
+  onBack,
+  completedChallenges,
+  isPremium,
+  onPurchased,
+}: PremiumScreenProps) {
   const insets = useSafeAreaInsets();
+  const [isRestoring, setIsRestoring] = useState(false);
+
+  const {
+    connected,
+    products,
+    fetchProducts,
+    requestPurchase,
+    finishTransaction,
+    restorePurchases,
+    availablePurchases,
+  } = useIAP({
+    onPurchaseSuccess: async purchase => {
+      if (purchase.productId !== PREMIUM_PRODUCT_ID) return;
+      await finishTransaction({ purchase, isConsumable: false });
+      onPurchased();
+      Alert.alert(
+        'Purchase Successful',
+        'You now have permanent access to Winter Premium!',
+      );
+    },
+    onPurchaseError: error => {
+      Alert.alert('Purchase Failed', error.message);
+    },
+  });
+
+  useEffect(() => {
+    if (connected) {
+      fetchProducts({ skus: [PREMIUM_PRODUCT_ID], type: 'in-app' });
+    }
+  }, [connected, fetchProducts]);
+
+  useEffect(() => {
+    const owned = availablePurchases.some(
+      purchase => purchase.productId === PREMIUM_PRODUCT_ID,
+    );
+    if (owned && !isPremium) {
+      onPurchased();
+    }
+    if (isRestoring) {
+      setIsRestoring(false);
+      if (owned) {
+        Alert.alert('Restored', 'Your Premium purchase has been restored.');
+      } else {
+        Alert.alert(
+          'Nothing to Restore',
+          'No previous purchase was found for this Apple ID.',
+        );
+      }
+    }
+  }, [availablePurchases, isPremium, isRestoring, onPurchased]);
+
+  const product = products.find(item => item.id === PREMIUM_PRODUCT_ID);
+  const displayPrice = product?.displayPrice ?? '$1.99';
 
   const handleBuyPress = () => {
-    Alert.alert(
-      'Complete Your Winter Journey',
-      "Before Premium becomes available, complete 2 Snow Challenges to prove your winter explorer skills.\n\nYou're almost there!",
-    );
+    if (isPremium) return;
+    if (completedChallenges < REQUIRED_CHALLENGES_FOR_PURCHASE) {
+      Alert.alert(
+        'Complete Your Winter Journey',
+        "Before Premium becomes available, complete 2 Snow Challenges to prove your winter explorer skills.\n\nYou're almost there!",
+      );
+      return;
+    }
+    requestPurchase({
+      request: { apple: { sku: PREMIUM_PRODUCT_ID } },
+      type: 'in-app',
+    });
+  };
+
+  const handleRestorePress = async () => {
+    setIsRestoring(true);
+    await restorePurchases();
   };
 
   return (
@@ -108,7 +187,9 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
                   PREMIUM ACCESS
                 </Text>
                 <View style={styles.PremiumScreenPriceRowLintel}>
-                  <Text style={styles.PremiumScreenPriceFiligree}>$1.99</Text>
+                  <Text style={styles.PremiumScreenPriceFiligree}>
+                    {displayPrice}
+                  </Text>
                 </View>
               </View>
             </LinearGradient>
@@ -158,9 +239,20 @@ export function PremiumScreen({ onBack }: PremiumScreenProps) {
                   resizeMode="contain"
                 />
                 <Text style={styles.PremiumScreenBuyFiligree}>
-                  Buy Premium — $1.99
+                  {isPremium
+                    ? 'Premium Unlocked ✓'
+                    : `Buy Premium — ${displayPrice}`}
                 </Text>
               </LinearGradient>
+            </AnimatedPressable>
+
+            <AnimatedPressable
+              onPress={handleRestorePress}
+              style={styles.PremiumScreenRestorePortico}
+            >
+              <Text style={styles.PremiumScreenRestoreFiligree}>
+                Restore Purchases
+              </Text>
             </AnimatedPressable>
           </FadeSlideIn>
         </ScrollView>
@@ -367,5 +459,16 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: fonts.sansBold,
     fontSize: 17,
+  },
+  PremiumScreenRestorePortico: {
+    alignItems: 'center',
+    marginTop: 16,
+    paddingVertical: 8,
+  },
+  PremiumScreenRestoreFiligree: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontFamily: fonts.sansMedium,
+    fontSize: 14,
+    textDecorationLine: 'underline',
   },
 });

@@ -30,5 +30,23 @@ target 'IntoFrozenExplorer' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Workaround for openiap 2.4.1: its StoreKit bridge gates brand-new iOS 26.4
+    # subscription commitment/billing-plan APIs behind `#if compiler(>=6.3)`, assuming
+    # Swift 6.3+ always implies an iOS 26.4+ SDK. Some Xcode builds report a 6.3+
+    # compiler while still shipping an SDK without these symbols, which fails with
+    # "value of type 'Transaction' has no member 'commitmentInfo'" (and similar).
+    # This app only ships a non-consumable purchase (no subscriptions), so it's safe
+    # to force these blocks onto their existing fallback path (return nil / throw
+    # featureNotSupported), which is exactly what happens on pre-6.3 compilers anyway.
+    bridge_file = File.join(installer.sandbox.pod_dir('openiap').to_s, 'packages/apple/Sources/Helpers/StoreKitTypesBridge.swift')
+    if File.exist?(bridge_file)
+      contents = File.read(bridge_file)
+      patched = contents.gsub('#if compiler(>=6.3)', '#if false // patched: SDK lacks iOS 26.4 StoreKit symbols')
+      if patched != contents
+        File.chmod(0644, bridge_file)
+        File.write(bridge_file, patched)
+      end
+    end
   end
 end

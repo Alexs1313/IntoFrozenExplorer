@@ -25,6 +25,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = IntoFrozenExplorer/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = IntoFrozenExplorer/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = IntoFrozenExplorer/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		94C032E420E248498381C86B /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = Products.storekit; path = IntoFrozenExplorer/Products.storekit; sourceTree = "<group>"; };
 		3004BB1CC87B4625982DA165 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../src/assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-IntoFrozenExplorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntoFrozenExplorer.debug.xcconfig"; path = "Target Support Files/Pods-IntoFrozenExplorer/Pods-IntoFrozenExplorer.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-IntoFrozenExplorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntoFrozenExplorer.release.xcconfig"; path = "Target Support Files/Pods-IntoFrozenExplorer/Pods-IntoFrozenExplorer.release.xcconfig"; sourceTree = "<group>"; };
@@ -72,6 +73,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				94C032E420E248498381C86B /* Products.storekit */,
 			);
 			name = IntoFrozenExplorer;
 			sourceTree = "<group>";

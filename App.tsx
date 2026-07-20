@@ -91,7 +91,6 @@ function App() {
       {phase === 'premium' && (
         <PremiumScreen
           onBack={() => setPhase('main')}
-          completedChallenges={completedChallenges}
           isPremium={isPremium}
           onPurchased={handlePremiumUnlocked}
         />

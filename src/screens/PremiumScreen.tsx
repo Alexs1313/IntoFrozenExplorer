@@ -16,14 +16,10 @@ import { AnimatedPressable } from '../components/animated/AnimatedPressable';
 import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { colors, fonts, spacing } from '../constants/theme';
-import {
-  PREMIUM_PRODUCT_ID,
-  REQUIRED_CHALLENGES_FOR_PURCHASE,
-} from '../services/iap';
+import { PREMIUM_PRODUCT_ID } from '../services/iap';
 
 type PremiumScreenProps = {
   onBack: () => void;
-  completedChallenges: number;
   isPremium: boolean;
   onPurchased: () => void;
 };
@@ -45,7 +41,6 @@ const FEATURES = [
 
 export function PremiumScreen({
   onBack,
-  completedChallenges,
   isPremium,
   onPurchased,
 }: PremiumScreenProps) {
@@ -106,13 +101,6 @@ export function PremiumScreen({
 
   const handleBuyPress = () => {
     if (isPremium) return;
-    if (completedChallenges < REQUIRED_CHALLENGES_FOR_PURCHASE) {
-      Alert.alert(
-        'Complete Your Winter Journey',
-        "Before Premium becomes available, complete 2 Snow Challenges to prove your winter explorer skills.\n\nYou're almost there!",
-      );
-      return;
-    }
     requestPurchase({
       request: { apple: { sku: PREMIUM_PRODUCT_ID } },
       type: 'in-app',

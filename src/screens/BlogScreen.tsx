@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -25,17 +25,42 @@ type BlogScreenProps = {
   onOpenPremium: () => void;
   activeTab: number;
   onTabPress: (index: number) => void;
+  onArticleRead?: (id: string) => void;
 };
 
 export function BlogScreen({
   onOpenPremium,
   activeTab,
   onTabPress,
+  onArticleRead,
 }: BlogScreenProps) {
   const insets = useSafeAreaInsets();
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [contentHeight, setContentHeight] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
+  const markedReadIdRef = useRef<string | null>(null);
 
   const article = selectedId ? ARTICLES.find(a => a.id === selectedId) : null;
+
+  useEffect(() => {
+    markedReadIdRef.current = null;
+    setContentHeight(0);
+    setViewportHeight(0);
+  }, [selectedId]);
+
+  const markArticleRead = (id: string) => {
+    if (markedReadIdRef.current === id) return;
+    markedReadIdRef.current = id;
+    onArticleRead?.(id);
+  };
+
+  useEffect(() => {
+    if (!article) return;
+    if (contentHeight > 0 && viewportHeight > 0 && contentHeight <= viewportHeight + 24) {
+      markArticleRead(article.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article, contentHeight, viewportHeight]);
 
   if (article) {
     return (
@@ -48,6 +73,21 @@ export function BlogScreen({
           <ScrollView
             showsVerticalScrollIndicator={false}
             bounces={false}
+            scrollEventThrottle={16}
+            onScroll={({ nativeEvent }) => {
+              const { layoutMeasurement, contentOffset, contentSize } =
+                nativeEvent;
+              if (
+                layoutMeasurement.height + contentOffset.y >=
+                contentSize.height - 24
+              ) {
+                markArticleRead(article.id);
+              }
+            }}
+            onLayout={({ nativeEvent }) =>
+              setViewportHeight(nativeEvent.layout.height)
+            }
+            onContentSizeChange={(_w, h) => setContentHeight(h)}
             contentContainerStyle={[
               styles.BlogScreenScrollLintel,
               {

@@ -26,12 +26,24 @@ function App() {
   const [savedFactIds, setSavedFactIds] = useState<Set<number>>(new Set());
 
   const [completedChallenges, setCompletedChallenges] = useState(0);
+  const [readArticleIds, setReadArticleIds] = useState<Set<string>>(
+    new Set(),
+  );
   const [isPremium, setIsPremium] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getMany(['completedChallenges', 'isPremium']).then(stored => {
+    AsyncStorage.getMany([
+      'completedChallenges',
+      'readArticleIds',
+      'isPremium',
+    ]).then(stored => {
       if (stored.completedChallenges) {
         setCompletedChallenges(Number(stored.completedChallenges));
+      }
+      if (stored.readArticleIds) {
+        try {
+          setReadArticleIds(new Set(JSON.parse(stored.readArticleIds)));
+        } catch {}
       }
       if (stored.isPremium === 'true') {
         setIsPremium(true);
@@ -47,6 +59,15 @@ function App() {
     setCompletedChallenges(prev => {
       const next = prev + 1;
       AsyncStorage.setItem('completedChallenges', String(next));
+      return next;
+    });
+  };
+
+  const handleArticleRead = (id: string) => {
+    setReadArticleIds(prev => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev).add(id);
+      AsyncStorage.setItem('readArticleIds', JSON.stringify([...next]));
       return next;
     });
   };
@@ -93,6 +114,8 @@ function App() {
           onBack={() => setPhase('main')}
           isPremium={isPremium}
           onPurchased={handlePremiumUnlocked}
+          readArticlesCount={readArticleIds.size}
+          completedChallenges={completedChallenges}
         />
       )}
 
@@ -141,6 +164,7 @@ function App() {
           onOpenPremium={handleOpenPremium}
           activeTab={activeTab}
           onTabPress={handleTabPress}
+          onArticleRead={handleArticleRead}
         />
       )}
 

@@ -16,12 +16,18 @@ import { AnimatedPressable } from '../components/animated/AnimatedPressable';
 import { FadeSlideIn } from '../components/animated/FadeSlideIn';
 import { PremiumBadge } from '../components/buttons/PremiumBadge';
 import { colors, fonts, spacing } from '../constants/theme';
-import { PREMIUM_PRODUCT_ID } from '../services/iap';
+import {
+  PREMIUM_PRODUCT_ID,
+  REQUIRED_ARTICLES_FOR_PURCHASE,
+  REQUIRED_CHALLENGES_FOR_PURCHASE,
+} from '../services/iap';
 
 type PremiumScreenProps = {
   onBack: () => void;
   isPremium: boolean;
   onPurchased: () => void;
+  readArticlesCount: number;
+  completedChallenges: number;
 };
 
 const FEATURES = [
@@ -43,6 +49,8 @@ export function PremiumScreen({
   onBack,
   isPremium,
   onPurchased,
+  readArticlesCount,
+  completedChallenges,
 }: PremiumScreenProps) {
   const insets = useSafeAreaInsets();
   const [isRestoring, setIsRestoring] = useState(false);
@@ -101,6 +109,16 @@ export function PremiumScreen({
 
   const handleBuyPress = () => {
     if (isPremium) return;
+    if (
+      readArticlesCount < REQUIRED_ARTICLES_FOR_PURCHASE ||
+      completedChallenges < REQUIRED_CHALLENGES_FOR_PURCHASE
+    ) {
+      Alert.alert(
+        'Complete Your Winter Journey',
+        `Before Premium becomes available, read ${REQUIRED_ARTICLES_FOR_PURCHASE} Winter Blog articles and complete ${REQUIRED_CHALLENGES_FOR_PURCHASE} Winter Challenges to prove your winter explorer skills.\n\nYou're almost there!`,
+      );
+      return;
+    }
     requestPurchase({
       request: { apple: { sku: PREMIUM_PRODUCT_ID } },
       type: 'in-app',
